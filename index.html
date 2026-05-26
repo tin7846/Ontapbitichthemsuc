@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hành Trình Thêm Sức 2026 - Trò Chơi Ôn Tập Giáo Lý</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbcfe8 100%);
+            min-height: 100vh;
+            user-select: none; /* Khóa bôi đen toàn trang chống copy */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        .script-font {
+            font-family: 'Pinyon Script', cursive;
+        }
+        /* Custom scrollbar for review list */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #f59e0b;
+            border-radius: 10px;
+        }
+        /* Music wave animation */
+        .music-bar {
+            width: 3px;
+            height: 15px;
+            background-color: #d97706;
+            animation: bounce 0.8s ease-in-out infinite alternate;
+        }
+        .music-bar:nth-child(2) { animation-delay: 0.2s; }
+        .music-bar:nth-child(3) { animation-delay: 0.4s; }
+        .music-bar:nth-child(4) { animation-delay: 0.1s; }
+        @keyframes bounce {
+            0% { height: 4px; }
+            100% { height: 18px; }
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col justify-between" onclick="handleFirstInteraction()">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-white/80 backdrop-blur-md border-b-2 border-amber-400 py-3 px-4 shadow-sm sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <!-- Holy Spirit Dove SVG Icon -->
+                <svg class="w-8 h-8 text-amber-500 fill-current animate-bounce" viewBox="0 0 24 24">
+                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4M12,18C8.69,18 6,15.31 6,12C6,10.09 6.9,8.38 8.3,7.27L9.7,8.68C8.65,9.47 8,10.66 8,12C8,14.2 9.8,16 12,16C14.2,16 16,14.2 16,12C16,10.66 15.35,9.47 14.3,8.68L15.7,7.27C17.1,8.38 18,10.09 18,12C18,15.31 15.31,18 12,18M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10Z"/>
+                </svg>
+                <span class="font-bold text-amber-700 tracking-wide md:text-lg text-sm">HÀNH TRÌNH THÊM SỨC 2026</span>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <!-- Music Control Button -->
+                <button onclick="toggleMusic(event)" class="flex items-center space-x-1.5 bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-800 text-xs font-semibold py-1.5 px-3 rounded-full transition-all active:scale-95">
+                    <span id="music-indicator-waves" class="flex items-center space-x-0.5 mr-1 hidden">
+                        <span class="music-bar"></span>
+                        <span class="music-bar"></span>
+                        <span class="music-bar"></span>
+                        <span class="music-bar"></span>
+                    </span>
+                    <i id="music-icon" class="fa-solid fa-volume-xmark"></i>
+                    <span id="music-text">Nhạc nền: Tắt</span>
+                </button>
+                <div class="text-right">
+                    <span id="header-user" class="text-xs md:text-sm font-semibold text-amber-900 bg-amber-100 px-2.5 py-1 rounded-full hidden">
+                        <i class="fa-solid fa-user-graduate mr-1"></i> <span id="header-username">Thí sinh</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 flex items-center justify-center">
+
+        <!-- SCREEN 1: LOGIN & RULES -->
+        <section id="screen-login" class="bg-white/95 rounded-2xl shadow-xl p-6 md:p-8 w-full border-t-8 border-amber-500 relative overflow-hidden">
+            <!-- Background Holy Spirit Fire Watermarks -->
+            <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-red-500">
+                <i class="fa-solid fa-fire text-[200px]"></i>
+            </div>
+            <div class="absolute -left-10 -top-10 opacity-5 pointer-events-none text-blue-500">
+                <i class="fa-solid fa-dove text-[200px]"></i>
+            </div>
+
+            <div class="text-center mb-6">
+                <p class="text-amber-600 font-bold uppercase tracking-wider text-xs md:text-sm">Chương Trình Ôn Tập Ban Bí Tích</p>
+                <h1 class="serif-title text-3xl md:text-4xl font-extrabold text-amber-800 mt-1">Đuốc Hồng Thần Khí</h1>
+                <div class="w-24 h-1 bg-gradient-to-r from-amber-400 via-red-500 to-amber-400 mx-auto mt-3 rounded-full"></div>
+                <p class="text-slate-500 text-xs md:text-sm mt-3 italic">"Đấng Bảo Trợ là Thánh Thần Chúa Cha sẽ sai đến... Ngài sẽ dạy anh em mọi điều..." (Ga 14, 26)</p>
+            </div>
+
+            <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 mb-6">
+                <h3 class="font-bold text-amber-900 mb-2"><i class="fa-solid fa-scroll mr-2 text-amber-600"></i>Quy chế hành trình ôn tập & <span class="text-red-600"><i class="fa-solid fa-shield-halved"></i> Bảo mật chống gian lận:</span></h3>
+                <ul class="text-xs md:text-sm text-slate-600 space-y-1.5 list-disc pl-5">
+                    <li>Hệ thống rút ngẫu nhiên <strong class="text-amber-700">25 câu hỏi</strong> từ ngân hàng đề cương (đáp án xáo trộn ngẫu nhiên).</li>
+                    <li>Thời gian làm bài quy định: <strong class="text-amber-700">15 phút (900 giây)</strong>.</li>
+                    <li>Để được công nhận <strong class="text-green-600 font-semibold">Hoàn Thành (Đạt)</strong>, em cần trả lời đúng <strong class="text-amber-700 font-bold">chính xác tuyệt đối 100%</strong> (25/25 câu hỏi).</li>
+                    <li><strong class="text-red-600 font-semibold"><i class="fa-solid fa-triangle-exclamation"></i> Chống gian lận:</strong> Khóa chuột phải, cấm sao chép câu hỏi. <strong class="text-red-700">KHÔNG ĐƯỢC CHUYỂN TAB</strong> để tra cứu AI/Kinh Thánh. Mỗi lần rời khỏi màn hình thi sẽ bị phạt trừ <strong class="font-bold">10 giây</strong>! Chuyển tab quá 3 lần bài làm sẽ bị hủy bỏ ngay lập tức.</li>
+                </ul>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" onsubmit="event.preventDefault(); startQuiz();" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1" for="username">
+                        <i class="fa-solid fa-signature text-amber-600 mr-1"></i> Họ và tên Thánh - Tên Gọi của em:
+                    </label>
+                    <input type="text" id="username" required placeholder="Ví dụ: Maria Nguyễn Thị Mai" 
+                        class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-amber-500 focus:ring-0 outline-none transition text-base font-semibold text-slate-700">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1" for="userclass">
+                            <i class="fa-solid fa-users text-amber-600 mr-1"></i> Lớp Giáo Lý / Xứ Đoàn:
+                        </label>
+                        <input type="text" id="userclass" required placeholder="Ví dụ: Lớp Thêm Sức 2" 
+                            class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-amber-500 focus:ring-0 outline-none transition text-base text-slate-700">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">
+                            <i class="fa-solid fa-hourglass-half text-amber-600 mr-1"></i> Thời gian thử thách:
+                        </label>
+                        <div class="w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl font-bold text-slate-700">
+                            15 phút (900 giây)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <button type="button" onclick="openLeaderboardModal(event)" class="flex-[1] bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-4 px-4 rounded-xl shadow border border-amber-300 transition duration-150 text-base flex justify-center items-center">
+                        <i class="fa-solid fa-trophy mr-1.5 text-amber-600"></i> Bảng Xếp Hạng
+                    </button>
+                    <button type="submit" class="flex-[2] bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-600 hover:to-red-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-amber-500/20 active:scale-[0.98] transition duration-150 text-lg tracking-wide flex justify-center items-center">
+                        <i class="fa-solid fa-cross mr-2"></i> BẮT ĐẦU ÔN TẬP
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- SCREEN 2: ACTIVE QUIZ -->
+        <section id="screen-quiz" class="bg-white/95 rounded-2xl shadow-xl p-5 md:p-8 w-full border-t-8 border-blue-500 relative hidden">
+            
+            <!-- Warning Flash Alert for Tab Switching -->
+            <div id="cheat-alert" class="hidden mb-4 p-3.5 bg-red-100 border-2 border-red-500 text-red-800 rounded-xl font-bold text-xs md:text-sm animate-bounce flex items-center justify-between shadow-md">
+                <span><i class="fa-solid fa-triangle-exclamation mr-1.5 text-red-600 text-lg"></i> PHÁT HIỆN CHUYỂN MÀN HÌNH! Con bị phạt <strong class="text-red-950">-10 giây</strong>! Vi phạm lần: <span id="cheat-count-display">0</span>/3</span>
+                <i class="fa-solid fa-ban text-lg"></i>
+            </div>
+
+            <!-- Header status bar -->
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-4 pb-4 border-b border-slate-100">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-bold text-blue-600 uppercase bg-blue-50 px-2 py-1 rounded">
+                        Câu hỏi <span id="current-question-num">1</span>/25
+                    </span>
+                    <span id="badge-theme" class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                        Giáo Lý
+                    </span>
+                </div>
+                
+                <!-- Circular/Bar Timer -->
+                <div id="timer-badge" class="flex items-center space-x-2 bg-red-50 px-3 py-1.5 rounded-full text-red-600 border border-red-200 transition-colors duration-350">
+                    <i class="fa-solid fa-clock animate-pulse"></i>
+                    <span id="timer-display" class="font-bold text-sm tracking-wide">15:00</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-100 h-2 rounded-full mb-6 overflow-hidden">
+                <div id="quiz-progress" class="bg-gradient-to-r from-blue-400 to-blue-600 h-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="mb-6">
+                <h2 id="question-text" class="serif-title text-lg md:text-xl font-bold text-slate-800 leading-relaxed min-h-[60px]">
+                    Đang tải câu hỏi...
+                </h2>
+            </div>
+
+            <!-- Answers List -->
+            <div id="options-container" class="space-y-3.5 mb-6">
+                <!-- Choices dynamically injected -->
+            </div>
+
+            <!-- Quiz Navigation -->
+            <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+                <button id="btn-hint" onclick="toggleHint()" class="text-sm font-semibold text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 px-4 py-2.5 rounded-xl transition flex items-center">
+                    <i class="fa-solid fa-lightbulb mr-1.5"></i> Gợi ý bổ ích
+                </button>
+                <button id="btn-next" onclick="nextQuestion()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-md transition flex items-center disabled:opacity-50 disabled:pointer-events-none">
+                    <span>Câu kế tiếp</span> <i class="fa-solid fa-arrow-right ml-1.5"></i>
+                </button>
+            </div>
+
+            <!-- Hint box -->
+            <div id="hint-box" class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs md:text-sm hidden leading-relaxed">
+                <i class="fa-solid fa-circle-info mr-1 text-amber-600"></i> <strong class="font-semibold text-amber-900">Gợi ý dành cho em:</strong> <span id="hint-text">Gợi ý câu hỏi.</span>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: RESULTS & FINAL SCREEN -->
+        <section id="screen-result" class="bg-white/95 rounded-2xl shadow-xl p-6 md:p-10 w-full border-t-8 text-center relative overflow-hidden hidden">
+            <!-- Confetti Canvas overlay inside card -->
+            <canvas id="confetti-canvas" class="absolute inset-0 pointer-events-none w-full h-full z-10"></canvas>
+
+            <div id="result-status-badge" class="mx-auto w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-3 shadow-inner">
+                <!-- Dynamic check or cross icon -->
+            </div>
+
+            <h1 id="result-heading" class="serif-title text-2xl md:text-3xl font-extrabold mb-1">Kết Quả Đánh Giá</h1>
+            <p id="result-user-info" class="text-slate-500 text-sm font-semibold mb-4">Em: Nguyễn Văn A - Lớp Thêm Sức 1</p>
+
+            <!-- Score board -->
+            <div class="max-w-md mx-auto bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-4 relative z-20 shadow-sm">
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div class="border-r border-slate-200">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Số câu đúng</p>
+                        <p id="result-correct-count" class="text-2xl font-extrabold text-slate-800 mt-1">25/25</p>
+                    </div>
+                    <div class="border-r border-slate-200">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Điểm cơ bản</p>
+                        <p id="result-base-score" class="text-2xl font-extrabold text-blue-600 mt-1">25,000</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Điểm thời gian</p>
+                        <p id="result-time-bonus" class="text-2xl font-extrabold text-amber-600 mt-1">+3,200</p>
+                    </div>
+                </div>
+
+                <div class="mt-3 pt-3 border-t border-slate-200 text-center">
+                    <p class="text-xs text-slate-400 font-bold uppercase tracking-wider">TỔNG ĐIỂM SỐ ĐẠT ĐƯỢC</p>
+                    <p id="result-total-score" class="text-4xl font-black text-amber-600 mt-1 tracking-tight">28,200</p>
+                </div>
+
+                <div class="mt-3 pt-3 border-t border-slate-200">
+                    <p id="result-comment" class="text-xs md:text-sm font-medium text-slate-600 leading-relaxed">
+                        Tuyệt vời! Em đã hoàn thành xuất sắc khóa ôn tập đức tin sẵn sàng cho ngày Thêm Sức sắp tới.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dynamic CTA Actions based on pass/fail -->
+            <div class="space-y-3 max-w-md mx-auto relative z-20 mb-6">
+                <button id="btn-download-cert" onclick="openCertificateModal()" class="w-full bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 hover:opacity-95 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition tracking-wide flex justify-center items-center">
+                    <i class="fa-solid fa-award mr-2 text-xl"></i> NHẬN & TẢI CHỨNG CHỈ VÀNG CO THẬT
+                </button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <button id="btn-review-mistakes" onclick="showReviewScreen()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-xl border border-slate-200 transition text-sm flex justify-center items-center">
+                        <i class="fa-solid fa-clipboard-list mr-1.5"></i> Xem lại bài làm
+                    </button>
+                    <button onclick="restartQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow transition text-sm flex justify-center items-center">
+                        <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Thử sức bộ đề mới
+                    </button>
+                </div>
+                <button onclick="openLeaderboardModal()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-4 rounded-xl shadow transition text-sm flex justify-center items-center">
+                    <i class="fa-solid fa-trophy mr-1.5 text-amber-400"></i> Xem Bảng Xếp Hạng Lớp Giáo Lý
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 4: DETAILED MISTAKES REVIEW -->
+        <section id="screen-review" class="bg-white/95 rounded-2xl shadow-xl p-5 md:p-8 w-full border-t-8 border-indigo-500 relative hidden">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                <h2 class="serif-title text-xl font-bold text-indigo-900"><i class="fa-solid fa-book-open mr-2 text-indigo-500"></i>Chi Tiết Bài Ôn Tập</h2>
+                <button onclick="goBackToResult()" class="text-sm font-semibold text-slate-500 hover:text-slate-800 bg-slate-100 px-3.5 py-1.5 rounded-lg transition">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Quay lại kết quả
+                </button>
+            </div>
+
+            <!-- Scrollable list of reviews -->
+            <div id="review-list-container" class="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+                <!-- Wrong/right cards go here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- CERTIFICATE MODAL PREVIEW & EXPORT -->
+    <div id="modal-certificate" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-5 shadow-2xl relative border-2 border-amber-300 flex flex-col items-center">
+            <button onclick="closeCertificateModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition">
+                <i class="fa-solid fa-circle-xmark text-2xl"></i>
+            </button>
+            
+            <h3 class="serif-title text-xl font-bold text-amber-800 mb-2 text-center">
+                <i class="fa-solid fa-certificate text-amber-500 mr-1.5"></i> Tải Chứng Chỉ Thần Khí Của Con
+            </h3>
+            <p class="text-xs text-slate-500 mb-4 text-center">Chứng chỉ thiết kế sắc nét dựa theo đúng kết quả và thông tin của con!</p>
+
+            <!-- Certificate Canvas Preview Container -->
+            <div class="w-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl flex justify-center py-4 mb-4">
+                <canvas id="cert-canvas" width="1000" height="707" class="w-full max-w-[500px] h-auto shadow-md rounded border border-slate-300 bg-white"></canvas>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex flex-wrap gap-3 w-full justify-center">
+                <button onclick="downloadCertificateImage()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl transition shadow flex items-center text-sm md:text-base">
+                    <i class="fa-solid fa-cloud-arrow-down mr-2 text-lg"></i> TẢI XUỐNG FILE ẢNH (PNG)
+                </button>
+                <button onclick="closeCertificateModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-5 rounded-xl transition text-sm md:text-base">
+                    Để lúc khác
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LEADERBOARD MODAL -->
+    <div id="modal-leaderboard" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl relative border-2 border-amber-400 flex flex-col">
+            <button onclick="closeLeaderboardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition">
+                <i class="fa-solid fa-circle-xmark text-2xl"></i>
+            </button>
+            
+            <div class="text-center mb-4">
+                <i class="fa-solid fa-trophy text-amber-500 text-4xl mb-1 animate-bounce"></i>
+                <h3 class="serif-title text-2xl font-bold text-amber-900">BẢNG VÀNG THẦN KHÍ</h3>
+                <p class="text-xs text-slate-500">Top 10 các em hoàn thành hành trình ôn tập xuất sắc nhất</p>
+            </div>
+
+            <div class="overflow-x-auto border border-slate-100 rounded-xl max-h-[50vh] overflow-y-auto">
+                <table class="w-full text-left border-collapse text-xs md:text-sm">
+                    <thead>
+                        <tr class="bg-amber-50 border-b border-amber-200 text-amber-900 font-bold">
+                            <th class="p-3 text-center">Hạng</th>
+                            <th class="p-3">Thí sinh</th>
+                            <th class="p-3">Lớp</th>
+                            <th class="p-3 text-center">Số Câu</th>
+                            <th class="p-3 text-right">Tổng Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-table-body">
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-4 flex gap-2 justify-between items-center">
+                <button onclick="clearLeaderboardData()" class="text-[10px] text-red-500 hover:text-red-700 font-bold transition">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Xoá dữ liệu bảng vàng
+                </button>
+                <button onclick="closeLeaderboardModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-xl transition text-xs">
+                    Đóng bảng vàng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky footer with copyright -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-4 px-4 text-xs">
+        <div class="max-w-4xl mx-auto space-y-1">
+            <p class="font-semibold text-slate-300">Chương trình Sát Hạch & Ôn Tập Giáo Lý Chuẩn Bị Lãnh Nhận Bí Tích Thêm Sức 2026</p>
+            <p>&copy; Ban Giáo Lý Xứ Đoàn Thiếu Nhi Thánh Thể - Thiết kế nâng cao cho thiếu nhi từ 8 đến 16 tuổi</p>
+        </div>
+    </footer>
+
+    <!-- AUDIO NOTIFICATION & BACKGROUND MUSIC ENGINE -->
+    <script>
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+        let bgMusicTimer = null;
+        let isMusicPlaying = false;
+        let musicStep = 0;
+        let hasInteracted = false;
+
+        const musicChords = [
+            [261.63, 329.63, 392.00, 493.88], // Cmaj7
+            [220.00, 261.63, 329.63, 392.00], // Am7
+            [174.61, 261.63, 349.23, 440.00], // Fmaj7
+            [196.00, 293.66, 392.00, 493.88]  // G7
+        ];
+
+        function playChordStep() {
+            if (!isMusicPlaying || !audioCtx) return;
+
+            const now = audioCtx.currentTime;
+            const chord = musicChords[musicStep];
+
+            chord.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.type = 'sine';
+                const noteStart = now + (idx * 0.15);
+                osc.frequency.setValueAtTime(freq, noteStart);
+                
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.015, noteStart + 0.5);
+                gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 3.8);
+                
+                osc.start(noteStart);
+                osc.stop(noteStart + 4.0);
+            });
+
+            if (musicStep % 2 === 0) {
+                const bellOsc = audioCtx.createOscillator();
+                const bellGain = audioCtx.createGain();
+                bellOsc.connect(bellGain);
+                bellGain.connect(audioCtx.destination);
+                bellOsc.type = 'sine';
+                bellOsc.frequency.setValueAtTime(1046.50, now + 0.8); // C6
+                bellGain.gain.setValueAtTime(0, now);
+                bellGain.gain.linearRampToValueAtTime(0.008, now + 0.9);
+                bellGain.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
+                bellOsc.start(now + 0.8);
+                bellOsc.stop(now + 3.2);
+            }
+
+            musicStep = (musicStep + 1) % musicChords.length;
+        }
+
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new AudioCtx();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function startMusicEngine() {
+            initAudioContext();
+            if (isMusicPlaying) return;
+
+            isMusicPlaying = true;
+            
+            const icon = document.getElementById('music-icon');
+            const text = document.getElementById('music-text');
+            const waves = document.getElementById('music-indicator-waves');
+
+            icon.className = "fa-solid fa-volume-high animate-pulse";
+            text.innerText = "Nhạc nền: Bật";
+            waves.classList.remove('hidden');
+            
+            musicStep = 0;
+            playChordStep();
+            clearInterval(bgMusicTimer);
+            bgMusicTimer = setInterval(playChordStep, 4000);
+        }
+
+        function stopMusicEngine() {
+            isMusicPlaying = false;
+            
+            const icon = document.getElementById('music-icon');
+            const text = document.getElementById('music-text');
+            const waves = document.getElementById('music-indicator-waves');
+
+            icon.className = "fa-solid fa-volume-xmark";
+            text.innerText = "Nhạc nền: Tắt";
+            waves.classList.add('hidden');
+            clearInterval(bgMusicTimer);
+        }
+
+        function toggleMusic(event) {
+            if (event) event.stopPropagation();
+            
+            if (!isMusicPlaying) {
+                startMusicEngine();
+            } else {
+                stopMusicEngine();
+            }
+        }
+
+        function handleFirstInteraction() {
+            if (hasInteracted) return;
+            hasInteracted = true;
+            startMusicEngine();
+        }
+
+        window.addEventListener('load', () => {
+            try {
+                startMusicEngine();
+            } catch (e) {
+                console.log("Direct autoplay blocked. Waiting for click interaction...");
+            }
+        });
+
+        function playSound(type) {
+            try {
+                initAudioContext();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'select') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(580, now);
+                    osc.frequency.exponentialRampToValueAtTime(1100, now + 0.08);
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'click') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(450, now);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                    osc.start(now);
+                    osc.stop(now + 0.06);
+                } else if (type === 'tick') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(1400, now);
+                    gain.gain.setValueAtTime(0.04, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+                    osc.start(now);
+                    osc.stop(now + 0.03);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.linearRampToValueAtTime(110, now + 0.6);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+                    osc.start(now);
+                    osc.stop(now + 0.65);
+                } else if (type === 'pass') {
+                    const freqs = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+                    freqs.forEach((freq, idx) => {
+                        const o = audioCtx.createOscillator();
+                        const g = audioCtx.createGain();
+                        o.connect(g);
+                        g.connect(audioCtx.destination);
+                        o.type = 'sine';
+                        o.frequency.setValueAtTime(freq, now + idx * 0.07);
+                        g.gain.setValueAtTime(0.08, now + idx * 0.07);
+                        g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.65);
+                        o.start(now + idx * 0.07);
+                        o.stop(now + idx * 0.07 + 0.65);
+                    });
+                } else if (type === 'siren') {
+                    // Còi hú báo động gian lận kịch tính
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(800, now);
+                    osc.frequency.linearRampToValueAtTime(1200, now + 0.2);
+                    osc.frequency.linearRampToValueAtTime(800, now + 0.4);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+                    osc.start(now);
+                    osc.stop(now + 0.45);
+                }
+            } catch (e) {
+                console.log("Sound effect blocked or context not initialized", e);
+            }
+        }
+    </script>
+
+    <!-- ANTI-CHEAT SECURITY CONTROLS -->
+    <script>
+        let cheatAttemptsCount = 0;
+        let isUserActiveInQuiz = false;
+
+        // 1. Khóa click chuột phải
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // 2. Khóa các tổ hợp phím sao chép (Ctrl+C, Ctrl+A, Ctrl+U, Ctrl+Shift+I)
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'a' || e.key === 'u' || e.key === 's')) {
+                e.preventDefault();
+            }
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+            }
+        });
+
+        // 3. Phát hiện chuyển Tab/Thu nhỏ trang (Page Visibility API)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && isUserActiveInQuiz) {
+                handleCheatAttempt();
+            }
+        });
+
+        // 4. Phát hiện mất Focus màn hình (nhấn click ra chỗ khác ngoài trình duyệt)
+        window.addEventListener('blur', () => {
+            if (isUserActiveInQuiz) {
+                handleCheatAttempt();
+            }
+        });
+
+        function handleCheatAttempt() {
+            cheatAttemptsCount++;
+            playSound('siren');
+
+            // Hiển thị cảnh báo trực quan
+            const alertBox = document.getElementById('cheat-alert');
+            const alertCount = document.getElementById('cheat-count-display');
+            alertBox.classList.remove('hidden');
+            alertCount.innerText = cheatAttemptsCount;
+
+            // Phạt trừ thời gian: Trừ ngay 10 giây thời gian làm bài
+            timeLeft = Math.max(0, timeLeft - 10);
+            updateTimerDisplay();
+
+            // Nếu gian lận quá 3 lần, tự động hủy bài thi và nộp
+            if (cheatAttemptsCount >= 3) {
+                clearInterval(timerInterval);
+                isUserActiveInQuiz = false;
+                autoSubmitQuiz("Bị ĐÌNH CHỈ THI do chuyển tab gian lận quá 3 lần!");
+            }
+
+            // Tự ẩn thông báo cảnh báo sau 5 giây
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+
+    <!-- PRIMARY GAME ENGINE AND DATABASE INJECTION -->
+    <script>
+        const MASTER_QUESTION_BANK = [
+            // BÀI 1: TUYÊN XƯNG ĐỨC TIN
+            {
+                theme: "Giáo Lý",
+                question: "Ý định của Thiên Chúa dành cho con người khi tạo dựng họ là gì?",
+                options: [
+                    "Để họ được thông phần sự sống hạnh phúc vô cùng của Ngài.",
+                    "Để thử thách sự kiên nhẫn và chịu đựng khó nhọc của con người.",
+                    "Để họ tự cai trị trái đất mà không cần tới ân sủng của Ngài.",
+                    "Để xây dựng một xã hội trần thế xa hoa và giàu sang vô tận."
+                ],
+                correctIndex: 0,
+                hint: "Ý định này phản ánh tình thương yêu vô biên của Chúa Cha muốn ban hạnh phúc vĩnh cửu cho con cái mình."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Mầu nhiệm trung tâm của đức tin và đời sống Kitô giáo là gì?",
+                options: [
+                    "Mầu nhiệm Thiên Chúa Ba Ngôi.",
+                    "Mầu nhiệm sự chết và phục sinh của Chúa Giê-su.",
+                    "Mầu nhiệm Đức Mẹ lên trời hồn xác.",
+                    "Mầu nhiệm sáng tạo vũ trụ muôn loài."
+                ],
+                correctIndex: 0,
+                hint: "Chúng ta được rửa tội nhân danh Cha, Con và Thánh Thần."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Khi tuyên xưng Thiên Chúa duy nhất, ta phải hiểu thế nào?",
+                options: [
+                    "Chỉ có một Thiên Chúa và ngoài Người ra không có Thiên Chúa nào khác.",
+                    "Có một Thiên Chúa lớn nhất và nhiều Thiên Chúa nhỏ bảo trợ.",
+                    "Thiên Chúa có thể bị thay đổi tùy theo đức tin của mỗi quốc gia.",
+                    "Thiên Chúa chỉ hiện diện duy nhất ở trong Đền thờ Giê-ru-sa-lem."
+                ],
+                correctIndex: 0,
+                hint: "Ta phải tôn thờ và chỉ kính sợ một mình Người mà thôi."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Ta phải hiểu thế nào về mầu nhiệm Một Chúa Ba Ngôi?",
+                options: [
+                    "Ba Ngôi tuy riêng biệt nhưng cùng một bản thể duy nhất và một uy quyền ngang nhau.",
+                    "Ba Ngôi là ba vị thần khác nhau, trong đó Chúa Cha là lớn nhất.",
+                    "Chúa Con và Chúa Thánh Thần là hai người giúp việc vâng lệnh Chúa Cha.",
+                    "Ba Ngôi là ba hình thức xuất hiện khác nhau của một ngôi duy nhất."
+                ],
+                correctIndex: 0,
+                hint: "Ba Ngôi không phân chia bản thể nhưng hiệp nhất hoàn hảo, có uy quyền ngang nhau."
+            },
+
+            // BÀI 2: BÍ TÍCH VÀ BÍ TÍCH THÊM SỨC
+            {
+                theme: "Giáo Lý",
+                question: "Bí tích là gì?",
+                options: [
+                    "Dấu bên ngoài Chúa Giêsu lập để diễn tả và thông ban cho ta ân sủng bên trong.",
+                    "Một nghi lễ xã hội truyền thống của Giáo Hội để họp mặt giáo dân.",
+                    "Lời dặn dò trong Kinh Thánh do Đức Giáo Hoàng viết ra để răn dạy tín hữu.",
+                    "Sự chuẩn bị tinh thần cần thiết trước mỗi thánh lễ do Giáo Lý Viên giảng."
+                ],
+                correctIndex: 0,
+                hint: "Bí tích ban cho chúng ta sự sống thần linh thông qua các dấu chỉ cảm giác được."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Cần có những điều kiện nào để lãnh nhận các Bí tích?",
+                options: [
+                    "Phải đón nhận, học hiểu Lời Chúa và phải có đức tin cùng thật lòng ước muốn.",
+                    "Phải đóng góp đầy đủ tài chính và dọn dẹp sạch sẽ nhà thờ giáo xứ.",
+                    "Phải có trang phục đẹp và có người thân làm nhân chứng chính quyền.",
+                    "Chỉ cần có mặt tham dự đầy đủ không cần hiểu hay ước muốn gì thêm."
+                ],
+                correctIndex: 0,
+                hint: "Đây là sự tương tác tự nguyện giữa ân sủng Thiên Chúa và sự sẵn sàng mở lòng của con người."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Đạo Công giáo có mấy Bí tích?",
+                options: [
+                    "7 Bí tích.",
+                    "6 Bí tích.",
+                    "10 Bí tích.",
+                    "3 Bí tích."
+                ],
+                correctIndex: 0,
+                hint: "Hãy nhớ đến các con số thánh hiêng: Rửa Tội, Thêm Sức, Mình Thánh Chúa, Giải Tội, Xức Dầu, Truyền Chức và Hôn Phối."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Những Bí tích nào chỉ được lãnh nhận MỘT LẦN duy nhất trong đời?",
+                options: [
+                    "Bí tích Rửa Tội, Bí tích Thêm Sức, Bí tích Truyền Chức Thánh.",
+                    "Bí tích Thêm Sức, Bí tích Mình Thánh Chúa, Bí tích Giải Tội.",
+                    "Bí tích Rửa Tội, Bí tích Giải Tội, Bí tích Xức Dầu Thánh.",
+                    "Bí tích Truyền Chức Thánh, Bí tích Hôn Phối, Bí tích Mình Thánh Chúa."
+                ],
+                correctIndex: 0,
+                hint: "Ba bí tích này in vào linh hồn một dấu ấn thiêng liêng (ấn tín) không bao giờ xóa được."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Bí tích Thêm Sức là gì?",
+                options: [
+                    "Bí tích ban tràn đầy Chúa Thánh Thần để giúp sống ơn Rửa Tội mạnh mẽ và tốt đẹp hơn.",
+                    "Bí tích giúp xóa bỏ hoàn toàn tội lỗi cá nhân từ trước đến nay.",
+                    "Nghi lễ giúp đánh dấu tuổi trưởng thành ngoài xã hội của một Kitô hữu.",
+                    "Phép lành đặc biệt ban riêng cho các Linh mục và Giáo lý viên khi phục vụ."
+                ],
+                correctIndex: 0,
+                hint: "Đọc kỹ tên gọi: 'Thêm Sức' là bổ túc, làm mạnh mẽ thêm ơn gọi làm con Chúa từ ngày Rửa Tội."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Hiệu quả cốt yếu nhất của Bí tích Thêm sức là gì?",
+                options: [
+                    "Đổ tràn Chúa Thánh Thần trên người lãnh bí tích, ghi ấn tín không thể tẩy xoá và gia tăng ân sủng Bí tích Rửa tội.",
+                    "Giúp người lãnh nhận có vị trí công việc cao và uy tín lớn hơn trong gia đình.",
+                    "Xóa bỏ tất cả các hình phạt hữu hình do giáo luật trần gian quy định.",
+                    "Ban cho người đỡ đầu được giảm bớt các giờ kinh nguyện bắt buộc hằng ngày."
+                ],
+                correctIndex: 0,
+                hint: "Hiệu quả này gắn kết mật thiết với ấn tín vĩnh cửu và ân sủng ngày Rửa Tội."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Nghi thức chính yếu của Bí tích Thêm sức bao gồm hành động nào?",
+                options: [
+                    "Xức dầu thánh trên trán, đặt tay trên đầu và đọc lời ban Bí tích.",
+                    "Vẩy nước thánh trên đầu và trao nến sáng cho người đỡ đầu.",
+                    "Choàng khăn trắng và đọc mười điều răn Đức Chúa Trời.",
+                    "Đặt sách Kinh Thánh trên vai người lãnh nhận và chúc bình an."
+                ],
+                correctIndex: 0,
+                hint: "Lời xướng chính là: 'Hãy lãnh nhận ấn tín ơn Chúa Thánh Thần'."
+            },
+            {
+                theme: "Nghi Thức",
+                question: "Đâu là câu thoại đúng giữa Đức Giám Mục (ĐGM) và Người lãnh nhận khi xức dầu?",
+                options: [
+                    "ĐGM: '... hãy lãnh nhận ấn tín ơn Chúa Thánh Thần' - Thí sinh: 'Amen'.",
+                    "ĐGM: 'Bình an của Chúa ở cùng con' - Thí sinh: 'Amen'.",
+                    "ĐGM: 'Đức Kitô đã cứu chuộc con' - Thí sinh: 'Tạ ơn Chúa'.",
+                    "ĐGM: 'Hãy ra đi làm chứng cho Chúa' - Thí sinh: 'Và ở cùng Cha'."
+                ],
+                correctIndex: 0,
+                hint: "Nghi thức xức dầu ghi dấu ấn tín thiêng liêng vĩnh viễn trên trán."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Thừa tác viên thông thường ban Bí tích Thêm Sức là ai?",
+                options: [
+                    "Thông thường là Đức Giám Mục và những linh mục được chỉ định.",
+                    "Tất cả các Giáo Lý Viên nam nữ đã hoàn thành khóa huấn luyện.",
+                    "Bất cứ người Kitô hữu trưởng thành nào cũng được phép ban.",
+                    "Chỉ duy nhất một vị Đức Thánh Cha (Giáo Hoàng) mới có quyền ban."
+                ],
+                correctIndex: 0,
+                hint: "Tuy nhiên, trong trường hợp khẩn cấp lâm tử thì bất cứ linh mục nào cũng đều được phép ban."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Dấu chỉ Ấn Tín của Chúa Thánh Thần xác nhận điều gì trên người lãnh nhận?",
+                options: [
+                    "Xác nhận người đó hoàn toàn thuộc về Đức Kitô để vĩnh viễn phục vụ Người.",
+                    "Xác nhận người đó đã hoàn hảo tuyệt đối không thể phạm tội được nữa.",
+                    "Là dấu chứng giúp người đó được ưu tiên thăng tiến ngoài xã hội.",
+                    "Là chứng chỉ chứng nhận em đã thuộc lòng tất cả các bài kinh."
+                ],
+                correctIndex: 0,
+                hint: "Ấn tín biểu trưng cho quyền sở hữu, khẳng định chúng ta thuộc trọn về Chúa."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Người lãnh Bí tích Thêm sức có những bổn phận thiêng liêng nào?",
+                options: [
+                    "Thi hành Lời Chúa, xây dựng xã hội theo tinh thần Tin Mừng, tích cực giới thiệu Chúa cho mọi người.",
+                    "Đóng góp tài chính đều đặn hằng tuần và trang trí bàn thờ giáo xứ.",
+                    "Tham gia học các khóa thần học cao cấp tại Vatican để làm Giám Mục.",
+                    "Tránh tuyệt đối các công việc xã hội ngoài đời để giữ linh hồn thanh khiết."
+                ],
+                correctIndex: 0,
+                hint: "Người trưởng thành trong đức tin có trách nhiệm dấn thân loan báo Tin Mừng."
+            },
+
+            // BÀI 3: CHÚA THÁNH THẦN
+            {
+                theme: "Giáo Lý",
+                question: "Chúa Thánh Thần là Đấng nào?",
+                options: [
+                    "Là Ngôi Ba Thiên Chúa, bởi Đức Chúa Cha và Đức Chúa Con mà ra.",
+                    "Là Đấng tạo dựng nên trời đất, muôn vật hữu hình và vô hình.",
+                    "Là Sứ thần cao cấp nhất của Thiên Chúa gửi xuống trần gian cứu giúp loài người.",
+                    "Là tước hiệu danh dự khác của Chúa Giêsu sau khi Người phục sinh."
+                ],
+                correctIndex: 0,
+                hint: "Ngài được phụng thờ và tôn vinh cùng với Đức Chúa Cha và Đức Chúa Con."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Kinh Thánh dùng những hình ảnh, biểu tượng nào để chỉ Chúa Thánh Thần?",
+                options: [
+                    "Nước, việc xức dầu, lửa, áng mây, ánh sáng, chim bồ câu, ấn tín, bàn tay...",
+                    "Bánh mỳ, rượu nho, nhành lá ô-liu, cá, thuyền buồm, triều thiên...",
+                    "Đá tảng, bão tố, sấm sét, sư tử vàng, cây trượng mục tử...",
+                    "Đền thờ đá, rèm thêu, lư hương, áo vải thô, chuông đồng..."
+                ],
+                correctIndex: 0,
+                hint: "Hãy nhớ đến hình ảnh xuất hiện tại sông Gio-đan khi Chúa Giêsu chịu phép rửa hoặc ngày Hiện Xuống."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Có mấy ơn Chúa Thánh Thần ban cho chúng ta?",
+                options: [
+                    "7 Ơn.",
+                    "12 Ơn.",
+                    "8 Ơn.",
+                    "14 Ơn."
+                ],
+                correctIndex: 0,
+                hint: "Nghĩ về cụm từ quen thuộc: 'Bảy Ơn Đức Chúa Thánh Thần'."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Ơn nào trong 7 Ơn Chúa Thánh Thần giúp ta phân biệt được điều phải trái trong cuộc sống?",
+                options: [
+                    "Ơn Khôn Ngoan.",
+                    "Ơn Sức Mạnh.",
+                    "Ơn Đạo Đức.",
+                    "Ơn Kính Sợ Thiên Chúa."
+                ],
+                correctIndex: 0,
+                hint: "Ơn này đứng đầu trong danh sách các ơn thiêng liêng giúp ta chọn lựa lành tránh dữ."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Ơn Sức Mạnh giúp ích gì cho Kitô hữu?",
+                options: [
+                    "Giúp ta chu toàn việc bổn phận và vượt qua mọi khó khăn thử thách.",
+                    "Giúp ta có sức khỏe thể chất phi thường để chiến thắng mọi người.",
+                    "Giúp ta trở nên nổi tiếng, giàu có và quyền lực trong xã hội.",
+                    "Giúp ta có khả năng đọc được suy nghĩ thầm kín của người khác."
+                ],
+                correctIndex: 0,
+                hint: "Sức mạnh thiêng liêng củng cố ý chí và lòng dũng cảm của ta trong đức tin."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Có mấy hoa trái của Chúa Thánh Thần theo giáo lý dạy?",
+                options: [
+                    "12 hoa trái.",
+                    "7 hoa trái.",
+                    "10 hoa trái.",
+                    "14 hoa trái."
+                ],
+                correctIndex: 0,
+                hint: "Bác ái, hoan lạc, an bình, kiên nhẫn, quảng đại, nhân từ, từ tâm, khoan dung, trung tín, khiêm nhu, tiết độ, thanh khiết."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Vì sao nói Hội thánh là Đền Thờ của Chúa Thánh Thần?",
+                options: [
+                    "Vì Chúa Thánh Thần luôn ở trong Hội Thánh như linh hồn của Nhiệm Thể.",
+                    "Vì tất cả gạch đá xây nhà thờ đều được Chúa Thánh Thần tạo ra trực tiếp.",
+                    "Vì Chúa Thánh Thần chỉ ngự ở những nơi yên tĩnh không có người phàm.",
+                    "Vì Hội Thánh đã cam kết nộp tài sản cho Ngài quản lý."
+                ],
+                correctIndex: 0,
+                hint: "Ngài không ngừng xây dựng, thánh hoá và canh tân Hội Thánh bằng các ân sủng."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Trong sứ vụ trần thế, Đức Giêsu Kitô có liên hệ đặc biệt nào với Chúa Thánh Thần?",
+                options: [
+                    "Đức Kitô được thánh hiến trong nhân tính nhờ việc xức dầu bằng Chúa Thánh Thần từ khi nhập thể.",
+                    "Đức Kitô chỉ gặp Chúa Thánh Thần một lần duy nhất tại vườn Gết-sê-ma-ni.",
+                    "Đức Kitô nhận lệnh huấn thị hoàn toàn từ Chúa Thánh Thần mỗi buổi sáng.",
+                    "Hai Ngôi luôn hoán đổi vị trí thể xác cho nhau khi di chuyển."
+                ],
+                correctIndex: 0,
+                hint: "Nhờ sức mạnh Thánh Thần, Đức Giêsu thi hành sứ mạng cứu độ trần gian."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Ai được Kinh Thánh tôn vinh là Đấng dạy dỗ và nhắc nhớ ta cầu nguyện?",
+                options: [
+                    "Chính Chúa Thánh Thần.",
+                    "Các Tông đồ thời tiên khởi.",
+                    "Ông trưởng ban phụng vụ giáo xứ.",
+                    "Tổ phụ Áp-ra-ham."
+                ],
+                correctIndex: 0,
+                hint: "Ngài khơi lên ngọn lửa cầu nguyện trong sâu thẳm tâm hồn con người."
+            },
+
+            // KINH CẦN THUỘC & ĐIỀU RĂN
+            {
+                theme: "Kinh Nguyện",
+                question: "Đâu là câu tiếp theo của Kinh Đức Chúa Thánh Thần: '...Chúng con xin Đức Chúa Thánh Thần xuống đầy lòng chúng con, là kẻ tin cậy Đức Chúa Trời,...'?",
+                options: [
+                    "và đốt lửa kính mến Đức Chúa Trời trong lòng chúng con.",
+                    "và ban cho chúng con được nhiều của cải vật chất.",
+                    "để chúng con không bao giờ phải chịu đau buồn gian khổ nữa.",
+                    "và sửa lại mọi sự hư hỏng ngoài đường phố chúng con."
+                ],
+                correctIndex: 0,
+                hint: "Chúa Thánh Thần mang ngọn lửa mến yêu thiêu đốt tâm hồn nguội lạnh."
+            },
+            {
+                theme: "Kinh Nguyện",
+                question: "Đọc Kinh Tin: 'Lạy Chúa, con tin thật có một Đức Chúa Trời là Đấng thưởng phạt vô cùng. Con lại tin thật Đức Chúa Trời có Ba Ngôi, mà Ngôi thứ Hai đã xuống thế làm người,...'?",
+                options: [
+                    "chịu nạn chịu chết mà chuộc tội cho thiên hạ.",
+                    "để dạy dỗ các tư tế đền thờ Giê-ru-sa-lem.",
+                    "để trừng phạt tất cả những kẻ hung ác chống đối Chúa.",
+                    "để làm vua thống trị thế gian uy quyền rực rỡ."
+                ],
+                correctIndex: 0,
+                hint: "Hành động cao cả nhất của Ngôi Hai cứu độ loài người trên Thập giá."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Mười Điều răn Đức Chúa Trời được tóm gọn về hai điều răn cốt lõi nào?",
+                options: [
+                    "Trước kính mến một Đức Chúa Trời trên hết mọi sự, sau là yêu người như mình ta vậy.",
+                    "Thứ nhất giữ ngày Chúa nhật, thứ hai thảo kính cha mẹ thật tốt.",
+                    "Thứ nhất thờ phượng Chúa, thứ hai chớ lấy của người làm của mình.",
+                    "Trước là giữ chay kiêng thịt, sau là siêng năng đi dâng lễ dâng tiền."
+                ],
+                correctIndex: 0,
+                hint: "Đức Giêsu tóm gọn Lề luật trong giới răn mến Chúa và yêu người."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Sáu điều răn Hội Thánh buộc chúng ta phải xưng tội trong một năm ít là mấy lần?",
+                options: [
+                    "Ít là một lần.",
+                    "Ít là ba lần.",
+                    "Mỗi tháng một lần.",
+                    "Ít là năm lần."
+                ],
+                correctIndex: 0,
+                hint: "Đặc biệt là xưng tội chuẩn bị cho mùa Phục sinh thánh thánh."
+            },
+            {
+                theme: "Kinh Nguyện",
+                question: "Trong Năm Sự Vui (Chuỗi Mân Côi), thứ năm thì ngắm: 'Đức Bà tìm được Đức Chúa Giêsu trong Đền thánh'. Ta hãy xin cho được điều gì?",
+                options: [
+                    "cho được giữ nghĩa cùng Chúa luôn.",
+                    "cho được lòng khiêm nhường thẳm sâu.",
+                    "cho được vâng lời chịu lụy các bề.",
+                    "cho được lo buồn đau đớn tội lỗi."
+                ],
+                correctIndex: 0,
+                hint: "Tìm thấy Chúa trong đền thờ tâm hồn chính là niềm vui giữ gìn ân nghĩa."
+            },
+            {
+                theme: "Kinh Nguyện",
+                question: "Kinh Ăn Năn Tội có câu: '...Con dốc lòng chừa cải, và nhờ ơn Chúa thì con sẽ lánh xa dịp tội cùng...'?",
+                options: [
+                    "làm việc đền tội cho xứng.",
+                    "đi dâng lễ đền bù tội lỗi.",
+                    "đọc mười kinh Kính Mừng đền tội.",
+                    "không bao giờ phạm bất kỳ lỗi nhỏ nào nữa."
+                ],
+                correctIndex: 0,
+                hint: "Lá từ tội lỗi đồng thời phải tích cực thi hành các việc lành phúc đức để đền tội."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Phúc Thật Tám Mối dạy gì về mối phúc thứ nhất?",
+                options: [
+                    "Ai có lòng khó khăn, ấy là phúc thật, vì chưng Nước Đức Chúa Trời là của mình vậy.",
+                    "Ai hiền lành, ấy là phúc thật, vì chưng sẽ được đất Đức Chúa Trời làm của mình vậy.",
+                    "Ai khóc lóc, ấy là phúc thật, vì chưng sẽ được an ủi vậy.",
+                    "Ai thương xót người, ấy là phúc thật, vì chưng mình sẽ được thương xót vậy."
+                ],
+                correctIndex: 0,
+                hint: "Khó khăn ở đây là tinh thần đơn sơ, phó thác, không dính bén ham mê của cải vật chất trần tục."
+            },
+            {
+                theme: "Giáo Lý",
+                question: "Mối 'Thương Linh Hồn Bảy Mối' dạy mối thứ năm là gì?",
+                options: [
+                    "Tha kẻ dể ta.",
+                    "Nhịn kẻ mất lòng ta.",
+                    "Cầu cho kẻ sống và kẻ chết.",
+                    "Yên ủi kẻ âu lo."
+                ],
+                correctIndex: 0,
+                hint: "Rộng lòng tha thứ cho những kẻ xúc phạm đến bản thân chính là việc thương linh hồn."
+            },
+
+            // LỜI CHÚA
+            {
+                theme: "Lời Chúa",
+                question: "Hãy hoàn thành câu Lời Chúa (Ga 15,5): 'Không có Thầy, anh em ______ làm gì được.'",
+                options: [
+                    "chẳng",
+                    "không thể",
+                    "khó mà",
+                    "vẫn tự"
+                ],
+                correctIndex: 0,
+                hint: "Chúa Giê-su ví Ngài là cây nho, chúng ta là cành nho, cành tách lìa cây sẽ khô héo."
+            },
+            {
+                theme: "Lời Chúa",
+                question: "Câu Lời Chúa (Mt 5,37) dạy về sự thật thà: 'Hễ có thì phải nói có, không thì phải nói không. Thêm thắt điều gì là do ______.'",
+                options: [
+                    "ác quỷ",
+                    "con người tội lỗi",
+                    "sự thiếu sót",
+                    "lòng ghen ghét"
+                ],
+                correctIndex: 0,
+                hint: "Cha của sự gian dối chính là kẻ xúi giục ta nói sai sự thật."
+            },
+            {
+                theme: "Lời Chúa",
+                question: "Câu Lời Chúa (Mt 26,41) dạy về sự tỉnh thức: 'Anh em hãy canh thức và cầu nguyện, để khỏi lâm vào cơn cám dỗ. Vì tinh thần thì hăng hái, nhưng ______ lại yếu đuối.'",
+                options: [
+                    "thể xác",
+                    "trí khôn",
+                    "lòng trí",
+                    "bản tính"
+                ],
+                correctIndex: 0,
+                hint: "Sức mạnh của xác thịt yếu đuối luôn cần lời cầu nguyện nâng đỡ liên tục."
+            },
+            {
+                theme: "Lời Chúa",
+                question: "Câu Lời Chúa (Gl 5,22-23) chép về hoa quả của Thần Khí: 'Còn hoa quả của Thần Khí là: bác ái, hoan lạc, bình an, nhẫn nhục, nhân hậu, từ tâm, trung tín, ______ , tiết độ.'",
+                options: [
+                    "hiền hòa",
+                    "siêng năng",
+                    "can đảm",
+                    "khôn ngoan"
+                ],
+                correctIndex: 0,
+                hint: "Một đức tính dịu dàng, ôn hòa của người Kitô hữu đích thực."
+            },
+            {
+                theme: "Lớp Học",
+                question: "Theo quy định hướng dẫn, khi tham gia học giáo lý và tham dự Thánh Lễ, các em phải mặc trang phục thế nào?",
+                options: [
+                    "Mặc đồng phục Thiếu Nhi Thánh Thể (TNTT) và đeo khăn quàng.",
+                    "Mặc áo trắng tự chọn thoải mái tự do không cần khăn.",
+                    "Mặc trang phục dạo phố thường ngày gọn gàng sạch sẽ.",
+                    "Mặc trang phục lễ hội theo đúng ý thích của phụ huynh."
+                ],
+                correctIndex: 0,
+                hint: "TNTT có đồng phục chính quy thể hiện sự nghiêm túc và tinh thần đội nhóm xứ đoàn."
+            }
+        ];
+
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = []; 
+        let timeLeft = 900; 
+        let timerInterval = null;
+        let userInfo = { name: "", className: "" };
+        let quizScore = 0;
+        let totalGameScore = 0;
+        let isHintVisible = false;
+        let currentQuizSessionId = ""; 
+
+        const DEFAULT_LEADERBOARD = [
+            { id: "mock-1", name: "Maria Têrêsa Hồng An", className: "Sống Đạo 1", correctCount: 25, timeTaken: 120, score: 34750, date: "24/05/2026" },
+            { id: "mock-2", name: "Giuse Nguyễn Minh Đức", className: "Thêm Sức 2", correctCount: 25, timeTaken: 180, score: 34000, date: "25/05/2026" },
+            { id: "mock-3", name: "Têrêsa Trần Thảo Vy", className: "Sống Đạo 2", correctCount: 25, timeTaken: 250, score: 33125, date: "25/05/2026" },
+            { id: "mock-4", name: "Phanxicô Xaviê Lê Gia Bảo", className: "Thêm Sức 1", correctCount: 24, timeTaken: 145, score: 24000, date: "23/05/2026" },
+            { id: "mock-5", name: "Anê Phạm Quỳnh Chi", className: "Sống Đạo 1", correctCount: 23, timeTaken: 220, score: 23000, date: "24/05/2026" }
+        ];
+
+        function initLeaderboardData() {
+            if (!localStorage.getItem('them_suc_leaderboard_2026')) {
+                localStorage.setItem('them_suc_leaderboard_2026', JSON.stringify(DEFAULT_LEADERBOARD));
+            }
+        }
+        initLeaderboardData();
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function generateTest() {
+            let dbClone = JSON.parse(JSON.stringify(MASTER_QUESTION_BANK));
+            shuffleArray(dbClone);
+            let selected = dbClone.slice(0, 25);
+            
+            selected.forEach(q => {
+                const originalOptions = [...q.options];
+                const correctOptionText = originalOptions[q.correctIndex];
+                shuffleArray(q.options);
+                q.correctIndex = q.options.indexOf(correctOptionText);
+            });
+
+            return selected;
+        }
+
+        function startTimer() {
+            timeLeft = 900; 
+            updateTimerDisplay();
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 30 && timeLeft > 0) {
+                    playSound('tick');
+                    const badge = document.getElementById('timer-badge');
+                    if (timeLeft % 2 === 0) {
+                        badge.className = "flex items-center space-x-2 bg-red-600 px-3 py-1.5 rounded-full text-white border border-red-700 animate-pulse transition-colors duration-300";
+                    } else {
+                        badge.className = "flex items-center space-x-2 bg-red-50 px-3 py-1.5 rounded-full text-red-600 border border-red-200 transition-colors duration-300";
+                    }
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    isUserActiveInQuiz = false;
+                    autoSubmitQuiz("Hết giờ làm bài!");
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const displayStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer-display').innerText = displayStr;
+        }
+
+        function showScreen(screenId) {
+            document.getElementById('screen-login').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('screen-result').classList.add('hidden');
+            document.getElementById('screen-review').classList.add('hidden');
+
+            document.getElementById(screenId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startQuiz() {
+            const nameInput = document.getElementById('username').value.trim();
+            const classInput = document.getElementById('userclass').value.trim();
+
+            if (!nameInput || !classInput) return;
+
+            userInfo.name = nameInput;
+            userInfo.className = classInput;
+            currentQuizSessionId = "user-" + Date.now(); 
+            cheatAttemptsCount = 0;
+            isUserActiveInQuiz = true;
+
+            playSound('click');
+            startMusicEngine();
+
+            // Clear any active cheat alerts
+            document.getElementById('cheat-alert').classList.add('hidden');
+
+            document.getElementById('header-username').innerText = `${userInfo.name} (${userInfo.className})`;
+            document.getElementById('header-user').classList.remove('hidden');
+            document.getElementById('timer-badge').className = "flex items-center space-x-2 bg-red-50 px-3 py-1.5 rounded-full text-red-600 border border-red-200 transition-colors";
+
+            currentQuestions = generateTest();
+            currentQuestionIndex = 0;
+            userAnswers = new Array(25).fill(null);
+
+            document.getElementById('hint-box').classList.add('hidden');
+            isHintVisible = false;
+
+            renderQuestion();
+            startTimer();
+            showScreen('screen-quiz');
+        }
+
+        function renderQuestion() {
+            const q = currentQuestions[currentQuestionIndex];
+            
+            document.getElementById('current-question-num').innerText = currentQuestionIndex + 1;
+            document.getElementById('badge-theme').innerText = q.theme;
+            document.getElementById('question-text').innerText = q.question;
+
+            const percent = ((currentQuestionIndex) / 25) * 100;
+            document.getElementById('quiz-progress').style.width = `${percent}%`;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = "";
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `w-full text-left p-4 rounded-xl border-2 font-medium text-sm md:text-base flex items-center justify-between transition-all duration-200 active:scale-[0.99] select-none`;
+                
+                if (userAnswers[currentQuestionIndex] === idx) {
+                    btn.className += " border-blue-600 bg-blue-50/80 text-blue-900 shadow-sm shadow-blue-100";
+                    btn.innerHTML = `<span><strong class="mr-2 text-blue-600">${String.fromCharCode(65 + idx)}.</strong> ${opt}</span><i class="fa-solid fa-circle-check text-blue-600 text-lg"></i>`;
+                } else {
+                    btn.className += " border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white text-slate-700";
+                    btn.innerHTML = `<span><strong class="mr-2 text-slate-400">${String.fromCharCode(65 + idx)}.</strong> ${opt}</span><span class="w-5 h-5 rounded-full border-2 border-slate-300 block flex-shrink-0"></span>`;
+                }
+
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    selectOption(idx);
+                };
+                container.appendChild(btn);
+            });
+
+            const nextBtn = document.getElementById('btn-next');
+            if (userAnswers[currentQuestionIndex] === null) {
+                nextBtn.disabled = true;
+                nextBtn.innerHTML = `Chọn 1 đáp án <i class="fa-solid fa-lock ml-1.5"></i>`;
+            } else {
+                nextBtn.disabled = false;
+                if (currentQuestionIndex === 24) { 
+                    nextBtn.innerHTML = `Nộp Bài Ôn Tập <i class="fa-solid fa-cloud-arrow-up ml-1.5"></i>`;
+                    nextBtn.className = nextBtn.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-emerald-600 hover:bg-emerald-700');
+                } else {
+                    nextBtn.innerHTML = `Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1.5"></i>`;
+                    nextBtn.className = nextBtn.className.replace('bg-emerald-600 hover:bg-emerald-700', 'bg-blue-600 hover:bg-blue-700');
+                }
+            }
+
+            document.getElementById('hint-text').innerText = q.hint;
+            if (!isHintVisible) {
+                document.getElementById('hint-box').classList.add('hidden');
+            } else {
+                document.getElementById('hint-box').classList.remove('hidden');
+            }
+        }
+
+        function selectOption(idx) {
+            userAnswers[currentQuestionIndex] = idx;
+            playSound('select');
+            renderQuestion();
+        }
+
+        function toggleHint() {
+            playSound('click');
+            isHintVisible = !isHintVisible;
+            const hintBox = document.getElementById('hint-box');
+            if (isHintVisible) {
+                hintBox.classList.remove('hidden');
+                hintBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                hintBox.classList.add('hidden');
+            }
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQuestionIndex] === null) return;
+            playSound('click');
+
+            if (currentQuestionIndex < 24) { 
+                currentQuestionIndex++;
+                isHintVisible = false;
+                renderQuestion();
+            } else {
+                clearInterval(timerInterval);
+                isUserActiveInQuiz = false;
+                calculateResults();
+            }
+        }
+
+        function autoSubmitQuiz(reason) {
+            for (let i = 0; i < 25; i++) {
+                if (userAnswers[i] === null) userAnswers[i] = -1;
+            }
+            calculateResults(reason);
+        }
+
+        function calculateResults(alertReason = "") {
+            isUserActiveInQuiz = false;
+            let correctCount = 0;
+            currentQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correctIndex) {
+                    correctCount++;
+                }
+            });
+
+            quizScore = correctCount;
+            const isPassed = (correctCount === 25) && (cheatAttemptsCount < 3);
+            const percentage = Math.round((correctCount / 25) * 100);
+
+            const baseScore = correctCount * 1000;
+            const speedBonus = isPassed ? Math.round(correctCount * timeLeft * 0.5) : 0;
+            totalGameScore = baseScore + speedBonus;
+
+            document.getElementById('result-user-info').innerText = `Thí sinh: ${userInfo.name} • Lớp: ${userInfo.className}`;
+            document.getElementById('result-percentage').innerText = `${percentage}%`;
+            document.getElementById('result-correct-count').innerText = `${correctCount}/25 câu`;
+            document.getElementById('result-base-score').innerText = baseScore.toLocaleString();
+            document.getElementById('result-time-bonus').innerText = `+${speedBonus.toLocaleString()}`;
+            document.getElementById('result-total-score').innerText = totalGameScore.toLocaleString();
+
+            const badge = document.getElementById('result-status-badge');
+            const heading = document.getElementById('result-heading');
+            const comment = document.getElementById('result-comment');
+            const certBtn = document.getElementById('btn-download-cert');
+            const resultCard = document.getElementById('screen-result');
+
+            if (isPassed) {
+                badge.className = "mx-auto w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-3 shadow-inner bg-emerald-100 text-emerald-600";
+                badge.innerHTML = `<i class="fa-solid fa-award animate-bounce"></i>`;
+                heading.innerText = "TUYỆT ĐỈNH HOÀN HẢO!";
+                heading.className = "serif-title text-2xl md:text-3xl font-extrabold mb-1 text-emerald-700";
+                comment.innerText = `Xuất sắc tuyệt đối! Con đã hoàn thành vẹn toàn thử thách đức tin với điểm số tối đa 25/25 câu hỏi (100%). Linh hồn con đã tỏa hương thơm Thánh Thần và sẵn sàng đón nhận ấn tín Bí Tích!`;
+                
+                resultCard.className = resultCard.className.replace(/border-t-\w+-500/, 'border-t-emerald-500');
+                certBtn.classList.remove('hidden');
+
+                setTimeout(() => {
+                    playSound('pass');
+                    initConfetti();
+                }, 100);
+            } else {
+                badge.className = "mx-auto w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-3 shadow-inner bg-red-100 text-red-600";
+                badge.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
+                heading.innerText = "CẦN ÔN TẬP THÊM CHÚT NỮA!";
+                heading.className = "serif-title text-2xl md:text-3xl font-extrabold mb-1 text-red-700";
+                
+                if (cheatAttemptsCount >= 3) {
+                    comment.innerText = `Bài làm của con bị đình chỉ do con chuyển đổi màn hình hoặc tab quá 3 lần để tra cứu gian lận. Giáo lý không chấp nhận sự thiếu trung thực. Hãy nghiêm túc làm lại từ đầu bằng thực lực của mình con nhé!`;
+                } else {
+                    comment.innerText = `Con đạt ${percentage}% (${correctCount}/25 câu đúng). Quy định của hành trình yêu cầu con phải đạt điểm tối đa 100% (25/25) mới nhận được Chứng Chỉ Thần Khí Vàng. Con hãy rà soát kỹ các lỗi sai dưới đây rồi ôn tập lại nhé!`;
+                }
+                
+                resultCard.className = resultCard.className.replace(/border-t-\w+-500/, 'border-t-red-500');
+                certBtn.classList.add('hidden'); 
+                
+                setTimeout(() => {
+                    playSound('wrong');
+                }, 100);
+            }
+
+            if (alertReason) {
+                comment.innerHTML = `<strong class="text-red-600 block mb-1">${alertReason}</strong>` + comment.innerHTML;
+            }
+
+            // Chỉ lưu bảng xếp hạng nếu không bị đình chỉ thi
+            if (cheatAttemptsCount < 3) {
+                saveToLeaderboard(userInfo.name, userInfo.className, correctCount, 900 - timeLeft, totalGameScore);
+            }
+
+            generateCertificateCanvas(percentage);
+            showScreen('screen-result');
+        }
+
+        function saveToLeaderboard(name, className, correctCount, timeTaken, score) {
+            let leaderboard = JSON.parse(localStorage.getItem('them_suc_leaderboard_2026')) || [];
+            const today = new Date();
+            const dateStr = `${today.getDate().toString().padStart(2,'0')}/${(today.getMonth() + 1).toString().padStart(2,'0')}/${today.getFullYear()}`;
+            
+            const newEntry = {
+                id: currentQuizSessionId,
+                name: name,
+                className: className,
+                correctCount: correctCount,
+                timeTaken: timeTaken,
+                score: score,
+                date: dateStr
+            };
+
+            leaderboard.push(newEntry);
+            leaderboard.sort((a, b) => {
+                if (b.score !== a.score) {
+                    return b.score - a.score;
+                }
+                return a.timeTaken - b.timeTaken;
+            });
+
+            leaderboard = leaderboard.slice(0, 15);
+            localStorage.setItem('them_suc_leaderboard_2026', JSON.stringify(leaderboard));
+        }
+
+        function renderLeaderboard() {
+            const tableBody = document.getElementById('leaderboard-table-body');
+            const leaderboard = JSON.parse(localStorage.getItem('them_suc_leaderboard_2026')) || [];
+            
+            tableBody.innerHTML = "";
+
+            if (leaderboard.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">Chưa có ai lưu điểm vàng. Hãy trở thành người đầu tiên!</td></tr>`;
+                return;
+            }
+
+            leaderboard.forEach((entry, index) => {
+                const tr = document.createElement('tr');
+                const isCurrentPlayer = (entry.id === currentQuizSessionId);
+                
+                tr.className = `border-b border-slate-100 transition-colors ${
+                    isCurrentPlayer ? 'bg-amber-100 font-semibold text-amber-950 border-y-2 border-amber-300' : 'hover:bg-slate-50 text-slate-700'
+                }`;
+
+                let rankDisplay = index + 1;
+                if (index === 0) rankDisplay = `<i class="fa-solid fa-crown text-amber-500 text-lg"></i>`;
+                else if (index === 1) rankDisplay = `<i class="fa-solid fa-medal text-slate-400 text-base"></i>`;
+                else if (index === 2) rankDisplay = `<i class="fa-solid fa-medal text-amber-700 text-base"></i>`;
+
+                tr.innerHTML = `
+                    <td class="p-3 text-center font-bold">${rankDisplay}</td>
+                    <td class="p-3 font-semibold text-slate-900 ${isCurrentPlayer ? 'text-amber-950' : ''}">${entry.name}</td>
+                    <td class="p-3 text-slate-500">${entry.className}</td>
+                    <td class="p-3 text-center">
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                            entry.correctCount === 25 ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
+                        }">
+                            ${entry.correctCount}/25
+                        </span>
+                    </td>
+                    <td class="p-3 text-right font-black text-amber-600">${entry.score.toLocaleString()}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        function clearLeaderboardData() {
+            if (confirm("Con có chắc muốn xóa sạch toàn bộ lịch sử điểm số của Bảng Vàng không?")) {
+                localStorage.setItem('them_suc_leaderboard_2026', JSON.stringify([]));
+                renderLeaderboard();
+                playSound('wrong');
+            }
+        }
+
+        function showReviewScreen() {
+            playSound('click');
+            const container = document.getElementById('review-list-container');
+            container.innerHTML = "";
+
+            currentQuestions.forEach((q, idx) => {
+                const isCorrect = userAnswers[idx] === q.correctIndex;
+                const chosenAns = userAnswers[idx] !== -1 ? q.options[userAnswers[idx]] : "Không trả lời";
+                const correctAns = q.options[q.correctIndex];
+
+                const card = document.createElement('div');
+                card.className = `p-4 rounded-xl border-l-4 shadow-sm ${isCorrect ? 'bg-emerald-50/50 border-emerald-500' : 'bg-red-50/50 border-red-500'}`;
+
+                card.innerHTML = `
+                    <div class="flex items-start space-x-2">
+                        <span class="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-xs ${isCorrect ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}">
+                            ${idx + 1}
+                        </span>
+                        <div class="flex-grow">
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200/80 text-slate-600">${q.theme}</span>
+                            <h4 class="font-bold text-slate-800 text-sm md:text-base mt-1.5 leading-relaxed">${q.question}</h4>
+                            
+                            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs md:text-sm">
+                                <p class="text-slate-600">
+                                    <i class="fa-solid fa-user-pen mr-1"></i> Bài làm của con: 
+                                    <strong class="${isCorrect ? 'text-emerald-700 font-semibold' : 'text-red-700 font-semibold'}">${chosenAns}</strong>
+                                </p>
+                                ${!isCorrect ? `
+                                <p class="text-slate-600">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Đáp án đúng: 
+                                    <strong class="text-emerald-700 font-semibold">${correctAns}</strong>
+                                </p>
+                                ` : ''}
+                            </div>
+                            
+                            <div class="mt-3 p-2.5 bg-white/80 border border-slate-100 rounded-lg text-xs text-slate-600 italic">
+                                <strong class="text-amber-800"><i class="fa-solid fa-graduation-cap"></i> Chìa khóa kiến thức:</strong> ${q.hint}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            showScreen('screen-review');
+        }
+
+        function goBackToResult() {
+            playSound('click');
+            showScreen('screen-result');
+        }
+
+        function restartQuiz() {
+            playSound('click');
+            showScreen('screen-login');
+        }
+
+        function initConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            const resizeCanvas = () => {
+                canvas.width = canvas.parentElement.clientWidth;
+                canvas.height = canvas.parentElement.clientHeight;
+            };
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            const colors = ['#f59e0b', '#3b82f6', '#ef4444', '#10b981', '#ec4899', '#8b5cf6'];
+            const confettiCount = 80;
+            const confetti = [];
+
+            for (let i = 0; i < confettiCount; i++) {
+                confetti.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 8 + 5,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 3 + 2,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: Math.random() * 4 - 2
+                });
+            }
+
+            let animationFrameId;
+            function updateConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+
+                confetti.forEach(c => {
+                    c.y += c.speed;
+                    c.rotation += c.rotationSpeed;
+                    
+                    if (c.y < canvas.height) {
+                        alive = true;
+                    }
+
+                    ctx.save();
+                    ctx.translate(c.x, c.y);
+                    ctx.rotate(c.rotation * Math.PI / 180);
+                    ctx.fillStyle = c.color;
+                    ctx.fillRect(-c.size/2, -c.size/2, c.size, c.size);
+                    ctx.restore();
+                });
+
+                if (alive) {
+                    animationFrameId = requestAnimationFrame(updateConfetti);
+                }
+            }
+            updateConfetti();
+        }
+
+        // CHỨNG CHỈ ĐƯỢC THIẾT KẾ LẠI SIÊU CHÂN THỰC & SANG TRỌNG (Độ phân giải lớn 1000x707)
+        function generateCertificateCanvas(scorePercentage) {
+            const canvas = document.getElementById('cert-canvas');
+            const ctx = canvas.getContext('2d');
+
+            // 1. NỀN GIẤY DA CỔ ĐIỂN (Parchment Paper)
+            const bgGrad = ctx.createLinearGradient(0, 0, 1000, 707);
+            bgGrad.addColorStop(0, '#fffbf0');
+            bgGrad.addColorStop(0.5, '#fdf5df');
+            bgGrad.addColorStop(1, '#f7ebd0');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, 1000, 707);
+
+            // 2. VẼ HOA VĂN CHÌM CHỐNG GIẢ (Guilloche Pattern)
+            ctx.save();
+            ctx.strokeStyle = 'rgba(217, 119, 6, 0.05)'; // Rất mảnh nhạt
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 1000; i += 25) {
+                ctx.beginPath();
+                ctx.arc(500, 353, i, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            ctx.restore();
+
+            // 3. KHUNG VIỀN HOÀNG GIA ĐA LỚP (Royal Border)
+            // Lớp ngoài cùng (Nâu sẫm mỏng)
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#451a03'; // amber-950
+            ctx.strokeRect(15, 15, 970, 677);
+
+            // Khoảng đệm hoa văn góc
+            // Lớp viền vàng đôi chính
+            ctx.lineWidth = 6;
+            ctx.strokeStyle = '#d97706'; // amber-700
+            ctx.strokeRect(35, 35, 930, 637);
+
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#fbbf24'; // amber-400
+            ctx.strokeRect(47, 47, 906, 613);
+
+            // Lớp viền chấm bi vàng hoàng cung nhỏ
+            ctx.save();
+            ctx.strokeStyle = 'rgba(180, 83, 9, 0.3)';
+            ctx.setLineDash([4, 8]);
+            ctx.lineWidth = 3;
+            ctx.strokeRect(58, 58, 884, 591);
+            ctx.restore();
+
+            // 4. VẼ GÓC HOA VĂN HOÀNG GIA CỔ ĐIỂN (Flourish Corners)
+            drawClassicCornerOrnament(ctx, 35, 35);
+            drawClassicCornerOrnament(ctx, 965, 35, true, false);
+            drawClassicCornerOrnament(ctx, 35, 672, false, true);
+            drawClassicCornerOrnament(ctx, 965, 672, true, true);
+
+            // 5. BIỂU TƯỢNG THẦN KHÍ THIÊNG LIÊNG (Tỏa hào quang rực rỡ)
+            drawAdvancedHolySpiritSymbol(ctx, 500, 130);
+
+            // 6. TIÊU ĐỀ CHÍNH (Đồng bộ font chân phương trang nghiêm)
+            ctx.textAlign = "center";
+            ctx.fillStyle = "#78350f"; // Nâu gỗ đậm cổ kính
+            ctx.font = "bold 32px 'Playfair Display', Georgia, serif";
+            ctx.fillText("CHỨNG NHẬN HOÀN THÀNH", 500, 225);
+
+            ctx.fillStyle = "#b45309"; // amber-700
+            ctx.font = "italic 16px 'Montserrat', sans-serif";
+            ctx.fillText("Chương Trình Sát Hạch Giáo Lý Thêm Sức Niên Khóa 2025 – 2026", 500, 255);
+
+            // Đường phân cách vàng vương miện quý phái
+            drawDecorativeDivider(ctx, 350, 650, 270);
+
+            // 7. NỘI DUNG CHỨNG NHẬN
+            ctx.fillStyle = "#334155"; // slate-700
+            ctx.font = "medium 18px 'Montserrat', sans-serif";
+            ctx.fillText("Ban Giáo Lý Xứ Đoàn Thiếu Nhi Thánh Thể hân hoan chứng nhận em:", 500, 310);
+
+            // Tên Thánh và tên gọi học sinh (Chữ to, Font viết tay giả chữ ký hoặc font rất đậm)
+            ctx.fillStyle = "#b91c1c"; // Đỏ phụng vụ/lửa thần khí
+            ctx.font = "bold 35px 'Playfair Display', Georgia, serif";
+            ctx.fillText(userInfo.name.toUpperCase(), 500, 360);
+
+            ctx.fillStyle = "#475569";
+            ctx.font = "bold 17px 'Montserrat', sans-serif";
+            ctx.fillText(`Chi đoàn / Lớp: ${userInfo.className}`, 500, 395);
+
+            // Lời tuyên dương danh dự
+            ctx.fillStyle = "#1e293b";
+            ctx.font = "15px 'Montserrat', sans-serif";
+            ctx.fillText("Đã vượt qua kỳ khảo thí ôn tập giáo lý toàn diện bằng thực lực với điểm số tuyệt đối 100%,", 500, 440);
+            ctx.fillText(`đạt mốc kỷ lục ${totalGameScore.toLocaleString()} điểm vàng Thần Khí hân hoan sẵn sàng bước vào Thánh Lễ Thêm Sức.`, 500, 465);
+
+            // Châm ngôn Thần Khí
+            ctx.fillStyle = "#78350f";
+            ctx.font = "italic 14px 'Playfair Display', serif";
+            ctx.fillText(`"Hãy lãnh nhận ấn tín ơn Chúa Thánh Thần" (Nghi thức Thêm Sức)`, 500, 515);
+
+            // 8. CHỮ KÝ, NGÀY THÁNG VÀ CON DẤU ĐỎ
+            const today = new Date();
+            const dateStr = `Ngày ${today.getDate()} tháng ${today.getMonth() + 1} năm ${today.getFullYear()}`;
+            
+            ctx.fillStyle = "#475569";
+            ctx.font = "13px 'Montserrat', sans-serif";
+            ctx.fillText(dateStr, 250, 570);
+            
+            ctx.fillStyle = "#1e293b";
+            ctx.font = "bold 13px 'Montserrat', sans-serif";
+            ctx.fillText("ĐẠI DIỆN BAN GIÁO LÝ XỨ ĐOÀN", 250, 595);
+            
+            // Vẽ chữ ký tay mềm mại giả lập cho thật
+            ctx.strokeStyle = "rgba(30, 41, 59, 0.85)";
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(190, 630);
+            ctx.bezierCurveTo(220, 600, 240, 650, 260, 620);
+            ctx.bezierCurveTo(280, 600, 290, 630, 320, 625);
+            ctx.stroke();
+
+            // Vẽ Con Dấu Đỏ Hoành Tráng (Chân thực hơn)
+            drawHighQualityParishSeal(ctx, 750, 590);
+        }
+
+        // Vẽ hoa văn góc cổ điển tinh xảo
+        function drawClassicCornerOrnament(ctx, x, y, flipX = false, flipY = false) {
+            ctx.save();
+            ctx.translate(x, y);
+            if (flipX) ctx.scale(-1, 1);
+            if (flipY) ctx.scale(1, -1);
+
+            ctx.strokeStyle = "#b45309"; // amber-700
+            ctx.lineWidth = 2;
+            
+            // Khung góc vuông cơ bản
+            ctx.beginPath();
+            ctx.moveTo(0, 40);
+            ctx.lineTo(0, 0);
+            ctx.lineTo(40, 0);
+            ctx.stroke();
+
+            // Hoa văn lá cách điệu cuộn tròn cổ điển
+            ctx.fillStyle = "#d97706";
+            ctx.beginPath();
+            ctx.arc(8, 8, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(0, 20);
+            ctx.quadraticCurveTo(15, 15, 20, 0);
+            ctx.quadraticCurveTo(8, 8, 0, 20);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Vẽ dải phân cách trang hoàng cổ điển
+        function drawDecorativeDivider(ctx, xStart, xEnd, y) {
+            ctx.save();
+            ctx.strokeStyle = "#fbbf24";
+            ctx.lineWidth = 1.5;
+            
+            ctx.beginPath();
+            ctx.moveTo(xStart, y);
+            ctx.lineTo(xEnd, y);
+            ctx.stroke();
+
+            // Vẽ hình kim cương nhỏ chính giữa đường thẳng
+            ctx.fillStyle = "#d97706";
+            ctx.beginPath();
+            const center = xStart + (xEnd - xStart)/2;
+            ctx.moveTo(center, y - 6);
+            ctx.lineTo(center + 10, y);
+            ctx.lineTo(center, y + 6);
+            ctx.lineTo(center - 10, y);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Vẽ Chim bồ câu biểu tượng cao cấp
+        function drawAdvancedHolySpiritSymbol(ctx, cx, cy) {
+            ctx.save();
+            ctx.translate(cx, cy);
+
+            // 1. Hào quang tỏa tia vàng kim phía sau
+            ctx.strokeStyle = "rgba(245, 158, 11, 0.4)";
+            ctx.lineWidth = 1.5;
+            for (let angle = 0; angle < 360; angle += 15) {
+                const rad = angle * Math.PI / 180;
+                ctx.beginPath();
+                ctx.moveTo(Math.cos(rad) * 20, Math.sin(rad) * 20);
+                ctx.lineTo(Math.cos(rad) * 55, Math.sin(rad) * 55);
+                ctx.stroke();
+            }
+
+            // 2. Halo lửa đỏ nhạt
+            ctx.fillStyle = "rgba(239, 68, 68, 0.12)"; 
+            ctx.beginPath();
+            ctx.arc(0, 0, 38, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 3. Ba ngọn lửa đỏ rực từ trên trời đổ xuống biểu trưng hồng ân
+            ctx.fillStyle = "rgba(220, 38, 38, 0.8)";
+            drawFlameShape(ctx, -25, 10, 8);
+            drawFlameShape(ctx, 0, 20, 10);
+            drawFlameShape(ctx, 25, 10, 8);
+
+            // 4. Chim bồ câu trắng tinh xảo bay đáp xuống
+            ctx.fillStyle = "#ffffff";
+            ctx.strokeStyle = "#78350f";
+            ctx.lineWidth = 2.5;
+            ctx.lineJoin = "round";
+
+            ctx.beginPath();
+            // Đầu và mỏ quay xuống dưới
+            ctx.moveTo(0, 22); 
+            ctx.quadraticCurveTo(-4, 12, -7, 6); // Đầu trái
+            ctx.quadraticCurveTo(-22, 2, -35, -5); // Cánh trái trên
+            ctx.quadraticCurveTo(-45, -5, -38, 8); // Cánh trái dưới
+            ctx.quadraticCurveTo(-18, 12, -5, 13); // Khớp cánh trái vào thân
+            
+            // Đuôi xòe quạt quý phái
+            ctx.quadraticCurveTo(-10, 25, -6, 35); 
+            ctx.quadraticCurveTo(0, 40, 6, 35);  
+            
+            // Cánh phải đối xứng
+            ctx.quadraticCurveTo(10, 25, 5, 13);  
+            ctx.quadraticCurveTo(18, 12, 38, 8);  
+            ctx.quadraticCurveTo(45, -5, 35, -5); 
+            ctx.quadraticCurveTo(22, 2, 7, 6);   
+            ctx.quadraticCurveTo(4, 12, 0, 22);  
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Mắt chim bồ câu mộc mạc
+            ctx.fillStyle = "#78350f";
+            ctx.beginPath();
+            ctx.arc(-2, 10, 1.5, 0, Math.PI*2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawFlameShape(ctx, x, y, size) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            // Vẽ ngọn lửa hình giọt nước cong ngược lên
+            ctx.bezierCurveTo(-size, -size/2, -size, -size*2, 0, -size*3);
+            ctx.bezierCurveTo(size, -size*2, size, -size/2, 0, 0);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Vẽ con dấu đỏ nổi bật có họa tiết Công Giáo chân thực
+        function drawHighQualityParishSeal(ctx, cx, cy) {
+            ctx.save();
+            ctx.translate(cx, cy);
+
+            const redInk = "rgba(185, 28, 28, 0.85)"; // Màu mực đỏ triện Công Giáo đậm đà
+            ctx.strokeStyle = redInk;
+            ctx.fillStyle = redInk;
+
+            // 1. Viền thô ngoài cùng dày dặn
+            ctx.lineWidth = 3.5;
+            ctx.beginPath();
+            ctx.arc(0, 0, 54, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // 2. Viền phụ mảnh bên trong
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.arc(0, 0, 46, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // 3. Viền mảnh trong cùng
+            ctx.beginPath();
+            ctx.arc(0, 0, 32, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // 4. Biểu tượng Thập Giá & Ngọn lửa Chúa Thánh Thần ở tâm con dấu
+            ctx.lineWidth = 3;
+            // Trục dọc thập giá
+            ctx.beginPath();
+            ctx.moveTo(0, -22);
+            ctx.lineTo(0, 16);
+            ctx.stroke();
+            // Thanh ngang thập giá
+            ctx.beginPath();
+            ctx.moveTo(-15, -10);
+            ctx.lineTo(15, -10);
+            ctx.stroke();
+
+            // Hình trái tim nhỏ bốc lửa ở chân Thập Giá đại diện cho tình yêu mến
+            ctx.beginPath();
+            ctx.arc(-4, 10, 4, 0, Math.PI, true);
+            ctx.arc(4, 10, 4, 0, Math.PI, true);
+            ctx.lineTo(0, 18);
+            ctx.closePath();
+            ctx.fill();
+
+            // 5. Viết chữ cong bao quanh đường viền tròn con dấu
+            ctx.font = "bold 8px Arial, sans-serif";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+
+            const textTop = "XỨ ĐOÀN THIẾU NHI THÁNH THỂ";
+            const textBottom = "★ BAN GIÁO LÝ ĐỨC TIN ★";
+
+            // Vẽ chữ uốn lượn phía trên
+            for (let i = 0; i < textTop.length; i++) {
+                // Góc quay từ -120 độ tới 120 độ
+                const angle = -Math.PI * 0.75 + (i / (textTop.length - 1)) * Math.PI * 1.5;
+                ctx.save();
+                ctx.rotate(angle);
+                ctx.translate(0, -39); // Đẩy chữ sát viền
+                ctx.fillText(textTop[i], 0, 0);
+                ctx.restore();
+            }
+
+            // Vẽ chữ uốn lượn phía dưới
+            for (let i = 0; i < textBottom.length; i++) {
+                const angle = Math.PI * 0.25 + (i / (textBottom.length - 1)) * Math.PI * 0.5;
+                ctx.save();
+                ctx.rotate(angle);
+                ctx.translate(0, 39); 
+                ctx.rotate(Math.PI); // Quay chữ 180 độ để dễ đọc dưới con dấu
+                ctx.fillText(textBottom[i], 0, 0);
+                ctx.restore();
+            }
+
+            ctx.restore();
+        }
+
+        function openCertificateModal() {
+            playSound('click');
+            const modal = document.getElementById('modal-certificate');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        }
+
+        function closeCertificateModal() {
+            playSound('click');
+            const modal = document.getElementById('modal-certificate');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function openLeaderboardModal(event) {
+            if (event) event.stopPropagation();
+            playSound('click');
+            renderLeaderboard();
+            const modal = document.getElementById('modal-leaderboard');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100');
+        }
+
+        function closeLeaderboardModal() {
+            playSound('click');
+            const modal = document.getElementById('modal-leaderboard');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+        function downloadCertificateImage() {
+            playSound('click');
+            const canvas = document.getElementById('cert-canvas');
+            const dataUrl = canvas.toDataURL("image/png");
+            
+            const link = document.createElement('a');
+            link.download = `Chung_Nhan_Them_Suc_${userInfo.name.replace(/\s+/g, '_')}.png`;
+            link.href = dataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>
