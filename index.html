@@ -14,7 +14,7 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbcfe8 100%);
+            background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 50%, #fce7f3 100%);
             min-height: 100vh;
             user-select: none; /* Khóa bôi đen toàn trang chống copy */
             -webkit-user-select: none;
@@ -53,35 +53,45 @@
             0% { height: 4px; }
             100% { height: 18px; }
         }
+        .glow-gold {
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+        }
+        .glow-red {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+        }
     </style>
 </head>
-<body class="text-slate-800 flex flex-col justify-between" onclick="handleFirstInteraction()">
+<body class="text-slate-800 flex flex-col justify-between min-h-screen" onclick="handleFirstInteraction()">
 
     <!-- Top Navigation Bar -->
-    <header class="bg-white/80 backdrop-blur-md border-b-2 border-amber-400 py-3 px-4 shadow-sm sticky top-0 z-30">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
+    <header class="bg-white/90 backdrop-blur-md border-b-2 border-amber-400 py-3 px-4 shadow-md sticky top-0 z-30">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-2">
                 <!-- Holy Spirit Dove SVG Icon -->
                 <svg class="w-8 h-8 text-amber-500 fill-current animate-bounce" viewBox="0 0 24 24">
                     <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4M12,18C8.69,18 6,15.31 6,12C6,10.09 6.9,8.38 8.3,7.27L9.7,8.68C8.65,9.47 8,10.66 8,12C8,14.2 9.8,16 12,16C14.2,16 16,14.2 16,12C16,10.66 15.35,9.47 14.3,8.68L15.7,7.27C17.1,8.38 18,10.09 18,12C18,15.31 15.31,18 12,18M12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12A2,2 0 0,0 12,10Z"/>
                 </svg>
-                <span class="font-bold text-amber-700 tracking-wide md:text-lg text-sm">HÀNH TRÌNH THÊM SỨC 2026</span>
+                <span class="font-bold text-amber-700 tracking-wide md:text-lg text-sm uppercase">Hành Trình Thêm Sức 2026</span>
             </div>
             
-            <div class="flex items-center space-x-3">
-                <!-- Music Control Button -->
-                <button onclick="toggleMusic(event)" class="flex items-center space-x-1.5 bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-800 text-xs font-semibold py-1.5 px-3 rounded-full transition-all active:scale-95">
-                    <span id="music-indicator-waves" class="flex items-center space-x-0.5 mr-1 hidden">
-                        <span class="music-bar"></span>
-                        <span class="music-bar"></span>
-                        <span class="music-bar"></span>
-                        <span class="music-bar"></span>
-                    </span>
-                    <i id="music-icon" class="fa-solid fa-volume-xmark"></i>
-                    <span id="music-text">Nhạc nền: Tắt</span>
-                </button>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+                <!-- Volume Control & Slider -->
+                <div class="flex items-center space-x-2 bg-amber-50 border border-amber-200 py-1.5 px-3 rounded-full shadow-inner">
+                    <button onclick="toggleMusic(event)" class="flex items-center text-amber-800 text-xs font-semibold focus:outline-none">
+                        <span id="music-indicator-waves" class="flex items-center space-x-0.5 mr-1.5 hidden">
+                            <span class="music-bar"></span>
+                            <span class="music-bar"></span>
+                            <span class="music-bar"></span>
+                            <span class="music-bar"></span>
+                        </span>
+                        <i id="music-icon" class="fa-solid fa-volume-xmark mr-1"></i>
+                        <span id="music-text">Tắt</span>
+                    </button>
+                    <input id="volume-slider" type="range" min="0" max="100" value="30" oninput="changeVolume(this.value)" class="w-16 h-1 bg-amber-200 rounded-lg appearance-none cursor-pointer accent-amber-600">
+                </div>
+                
                 <div class="text-right">
-                    <span id="header-user" class="text-xs md:text-sm font-semibold text-amber-900 bg-amber-100 px-2.5 py-1 rounded-full hidden">
+                    <span id="header-user" class="text-xs md:text-sm font-semibold text-amber-900 bg-amber-100 px-3 py-1.5 rounded-full hidden">
                         <i class="fa-solid fa-user-graduate mr-1"></i> <span id="header-username">Thí sinh</span>
                     </span>
                 </div>
@@ -93,7 +103,7 @@
     <main class="flex-grow max-w-4xl w-full mx-auto p-4 flex items-center justify-center">
 
         <!-- SCREEN 1: LOGIN & RULES -->
-        <section id="screen-login" class="bg-white/95 rounded-2xl shadow-xl p-6 md:p-8 w-full border-t-8 border-amber-500 relative overflow-hidden">
+        <section id="screen-login" class="bg-white/95 rounded-2xl shadow-xl p-6 md:p-8 w-full border-t-8 border-amber-500 relative overflow-hidden transition-all duration-350 glow-gold">
             <!-- Background Holy Spirit Fire Watermarks -->
             <div class="absolute -right-10 -bottom-10 opacity-5 pointer-events-none text-red-500">
                 <i class="fa-solid fa-fire text-[200px]"></i>
@@ -110,84 +120,86 @@
             </div>
 
             <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-4 mb-6">
-                <h3 class="font-bold text-amber-900 mb-2"><i class="fa-solid fa-scroll mr-2 text-amber-600"></i>Quy chế hành trình ôn tập & <span class="text-red-600"><i class="fa-solid fa-shield-halved"></i> Bảo mật chống gian lận:</span></h3>
+                <h3 class="font-bold text-amber-900 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-scroll text-amber-600"></i> Quy chế hành trình ôn tập & bảo mật chống gian lận:
+                </h3>
                 <ul class="text-xs md:text-sm text-slate-600 space-y-1.5 list-disc pl-5">
                     <li>Hệ thống rút ngẫu nhiên <strong class="text-amber-700">25 câu hỏi</strong> từ ngân hàng đề cương (đáp án xáo trộn ngẫu nhiên).</li>
                     <li>Thời gian làm bài quy định: <strong class="text-amber-700">15 phút (900 giây)</strong>.</li>
-                    <li>Để được công nhận <strong class="text-green-600 font-semibold">Hoàn Thành (Đạt)</strong>, em cần trả lời đúng <strong class="text-amber-700 font-bold">chính xác tuyệt đối 100%</strong> (25/25 câu hỏi).</li>
-                    <li><strong class="text-red-600 font-semibold"><i class="fa-solid fa-triangle-exclamation"></i> Chống gian lận:</strong> Khóa chuột phải, cấm sao chép câu hỏi. <strong class="text-red-700">KHÔNG ĐƯỢC CHUYỂN TAB</strong> để tra cứu AI/Kinh Thánh. Mỗi lần rời khỏi màn hình thi sẽ bị phạt trừ <strong class="font-bold">10 giây</strong>! Chuyển tab quá 3 lần bài làm sẽ bị hủy bỏ ngay lập tức.</li>
+                    <li>Để đạt danh hiệu <strong class="text-green-600 font-semibold">Hoàn Thành Xuất Sắc</strong>, em cần trả lời đúng <strong class="text-amber-700 font-bold">chính xác tuyệt đối 100%</strong> (25/25 câu hỏi).</li>
+                    <li><strong class="text-red-600 font-semibold"><i class="fa-solid fa-triangle-exclamation"></i> Chống gian lận nghiêm ngặt:</strong> Hệ thống tự khóa chuột phải và cấm sao chép câu hỏi. <strong class="text-red-700">KHÔNG ĐƯỢC CHUYỂN TAB</strong> để tra cứu. Mỗi lần chuyển màn hình sẽ bị phạt trừ <strong class="font-bold">10 giây</strong>! Quá 3 lần bài làm sẽ bị hủy bỏ tự động.</li>
                 </ul>
             </div>
 
             <!-- Login Form -->
             <form id="login-form" onsubmit="event.preventDefault(); startQuiz();" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-1" for="username">
-                        <i class="fa-solid fa-signature text-amber-600 mr-1"></i> Họ và tên Thánh - Tên Gọi của em:
+                    <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="username">
+                        <i class="fa-solid fa-signature text-amber-600 mr-1"></i> Họ tên Thánh & Tên Gọi của em:
                     </label>
                     <input type="text" id="username" required placeholder="Ví dụ: Maria Nguyễn Thị Mai" 
-                        class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-amber-500 focus:ring-0 outline-none transition text-base font-semibold text-slate-700">
+                        class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-amber-500 focus:ring-0 outline-none transition text-base font-semibold text-slate-700 shadow-sm">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1" for="userclass">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5" for="userclass">
                             <i class="fa-solid fa-users text-amber-600 mr-1"></i> Lớp Giáo Lý / Xứ Đoàn:
                         </label>
                         <input type="text" id="userclass" required placeholder="Ví dụ: Lớp Thêm Sức 2" 
-                            class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-amber-500 focus:ring-0 outline-none transition text-base text-slate-700">
+                            class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-amber-500 focus:ring-0 outline-none transition text-base text-slate-700 shadow-sm">
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1.5">
                             <i class="fa-solid fa-hourglass-half text-amber-600 mr-1"></i> Thời gian thử thách:
                         </label>
-                        <div class="w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl font-bold text-slate-700">
+                        <div class="w-full px-4 py-3 bg-slate-100 border border-slate-200 rounded-xl font-bold text-slate-700 shadow-inner">
                             15 phút (900 giây)
                         </div>
                     </div>
                 </div>
 
-                <div class="flex gap-3">
-                    <button type="button" onclick="openLeaderboardModal(event)" class="flex-[1] bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-4 px-4 rounded-xl shadow border border-amber-300 transition duration-150 text-base flex justify-center items-center">
-                        <i class="fa-solid fa-trophy mr-1.5 text-amber-600"></i> Bảng Xếp Hạng
+                <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                    <button type="button" onclick="openLeaderboardModal(event)" class="w-full sm:w-1/3 bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-4 px-4 rounded-xl shadow border border-amber-300 transition duration-150 text-base flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-trophy text-amber-600"></i> Bảng Vàng
                     </button>
-                    <button type="submit" class="flex-[2] bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-600 hover:to-red-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-amber-500/20 active:scale-[0.98] transition duration-150 text-lg tracking-wide flex justify-center items-center">
-                        <i class="fa-solid fa-cross mr-2"></i> BẮT ĐẦU ÔN TẬP
+                    <button type="submit" class="w-full sm:w-2/3 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 hover:from-amber-600 hover:to-red-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-amber-500/20 active:scale-[0.98] transition duration-150 text-lg tracking-wide flex justify-center items-center gap-2">
+                        <i class="fa-solid fa-cross"></i> BẮT ĐẦU ÔN TẬP
                     </button>
                 </div>
             </form>
         </section>
 
         <!-- SCREEN 2: ACTIVE QUIZ -->
-        <section id="screen-quiz" class="bg-white/95 rounded-2xl shadow-xl p-5 md:p-8 w-full border-t-8 border-blue-500 relative hidden">
+        <section id="screen-quiz" class="bg-white/95 rounded-2xl shadow-xl p-5 md:p-8 w-full border-t-8 border-blue-500 relative hidden transition-all duration-350">
             
             <!-- Warning Flash Alert for Tab Switching -->
             <div id="cheat-alert" class="hidden mb-4 p-3.5 bg-red-100 border-2 border-red-500 text-red-800 rounded-xl font-bold text-xs md:text-sm animate-bounce flex items-center justify-between shadow-md">
-                <span><i class="fa-solid fa-triangle-exclamation mr-1.5 text-red-600 text-lg"></i> PHÁT HIỆN CHUYỂN MÀN HÌNH! Con bị phạt <strong class="text-red-950">-10 giây</strong>! Vi phạm lần: <span id="cheat-count-display">0</span>/3</span>
-                <i class="fa-solid fa-ban text-lg"></i>
+                <span><i class="fa-solid fa-triangle-exclamation mr-1.5 text-red-600 text-lg"></i> PHÁT HIỆN RỜI MÀN HÌNH THI! Phạt ngay <strong class="text-red-950">-10 giây</strong>! Lần vi phạm: <span id="cheat-count-display">0</span>/3</span>
+                <i class="fa-solid fa-ban text-lg animate-spin-slow"></i>
             </div>
 
             <!-- Header status bar -->
             <div class="flex flex-wrap justify-between items-center gap-2 mb-4 pb-4 border-b border-slate-100">
                 <div class="flex items-center space-x-2">
-                    <span class="text-xs font-bold text-blue-600 uppercase bg-blue-50 px-2 py-1 rounded">
+                    <span class="text-xs font-bold text-blue-600 uppercase bg-blue-50 px-2.5 py-1.5 rounded-lg border border-blue-100">
                         Câu hỏi <span id="current-question-num">1</span>/25
                     </span>
-                    <span id="badge-theme" class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded">
+                    <span id="badge-theme" class="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-1.5 rounded-lg border border-slate-200">
                         Giáo Lý
                     </span>
                 </div>
                 
                 <!-- Circular/Bar Timer -->
-                <div id="timer-badge" class="flex items-center space-x-2 bg-red-50 px-3 py-1.5 rounded-full text-red-600 border border-red-200 transition-colors duration-350">
+                <div id="timer-badge" class="flex items-center space-x-2 bg-red-50 px-3.5 py-2 rounded-full text-red-600 border border-red-200 transition-colors duration-300">
                     <i class="fa-solid fa-clock animate-pulse"></i>
                     <span id="timer-display" class="font-bold text-sm tracking-wide">15:00</span>
                 </div>
             </div>
 
             <!-- Progress Bar -->
-            <div class="w-full bg-slate-100 h-2 rounded-full mb-6 overflow-hidden">
-                <div id="quiz-progress" class="bg-gradient-to-r from-blue-400 to-blue-600 h-full transition-all duration-300" style="width: 0%"></div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full mb-6 overflow-hidden">
+                <div id="quiz-progress" class="bg-gradient-to-r from-blue-400 to-indigo-600 h-full transition-all duration-300" style="width: 0%"></div>
             </div>
 
             <!-- Question Card -->
@@ -204,8 +216,8 @@
 
             <!-- Quiz Navigation -->
             <div class="flex justify-between items-center pt-4 border-t border-slate-100">
-                <button id="btn-hint" onclick="toggleHint()" class="text-sm font-semibold text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 px-4 py-2.5 rounded-xl transition flex items-center">
-                    <i class="fa-solid fa-lightbulb mr-1.5"></i> Gợi ý bổ ích
+                <button id="btn-hint" onclick="toggleHint()" class="text-sm font-semibold text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 px-4 py-2.5 rounded-xl transition flex items-center shadow-sm">
+                    <i class="fa-solid fa-lightbulb mr-1.5"></i> Gợi ý học tập
                 </button>
                 <button id="btn-next" onclick="nextQuestion()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-md transition flex items-center disabled:opacity-50 disabled:pointer-events-none">
                     <span>Câu kế tiếp</span> <i class="fa-solid fa-arrow-right ml-1.5"></i>
@@ -213,13 +225,13 @@
             </div>
 
             <!-- Hint box -->
-            <div id="hint-box" class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs md:text-sm hidden leading-relaxed">
+            <div id="hint-box" class="mt-4 p-4 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-xs md:text-sm hidden leading-relaxed shadow-inner">
                 <i class="fa-solid fa-circle-info mr-1 text-amber-600"></i> <strong class="font-semibold text-amber-900">Gợi ý dành cho em:</strong> <span id="hint-text">Gợi ý câu hỏi.</span>
             </div>
         </section>
 
         <!-- SCREEN 3: RESULTS & FINAL SCREEN -->
-        <section id="screen-result" class="bg-white/95 rounded-2xl shadow-xl p-6 md:p-10 w-full border-t-8 text-center relative overflow-hidden hidden">
+        <section id="screen-result" class="bg-white/95 rounded-2xl shadow-xl p-6 md:p-10 w-full border-t-8 text-center relative overflow-hidden hidden transition-all duration-350">
             <!-- Confetti Canvas overlay inside card -->
             <canvas id="confetti-canvas" class="absolute inset-0 pointer-events-none w-full h-full z-10"></canvas>
 
@@ -230,19 +242,31 @@
             <h1 id="result-heading" class="serif-title text-2xl md:text-3xl font-extrabold mb-1">Kết Quả Đánh Giá</h1>
             <p id="result-user-info" class="text-slate-500 text-sm font-semibold mb-4">Em: Nguyễn Văn A - Lớp Thêm Sức 1</p>
 
+            <!-- Radial Progress Score Ring (FIXED & DESIGNED FOR BEAUTY) -->
+            <div class="relative w-36 h-36 mx-auto mb-6 flex items-center justify-center">
+                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="42" stroke="#f1f5f9" stroke-width="8" fill="transparent"/>
+                    <circle id="result-radial-bar" cx="50" cy="50" r="42" stroke="#d97706" stroke-width="8" fill="transparent" stroke-dasharray="263.89" stroke-dashoffset="263.89" stroke-linecap="round" class="transition-all duration-1000 ease-out"/>
+                </svg>
+                <div class="absolute text-center">
+                    <span id="result-percentage" class="text-3xl font-black text-amber-600 tracking-tight">0%</span>
+                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Độ chính xác</p>
+                </div>
+            </div>
+
             <!-- Score board -->
-            <div class="max-w-md mx-auto bg-slate-50 border border-slate-100 rounded-2xl p-4 mb-4 relative z-20 shadow-sm">
+            <div class="max-w-md mx-auto bg-slate-50 border border-slate-150 rounded-2xl p-4 mb-4 relative z-20 shadow-inner">
                 <div class="grid grid-cols-3 gap-2 text-center">
                     <div class="border-r border-slate-200">
                         <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Số câu đúng</p>
                         <p id="result-correct-count" class="text-2xl font-extrabold text-slate-800 mt-1">25/25</p>
                     </div>
                     <div class="border-r border-slate-200">
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Điểm cơ bản</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Điểm tích lũy</p>
                         <p id="result-base-score" class="text-2xl font-extrabold text-blue-600 mt-1">25,000</p>
                     </div>
                     <div>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Điểm thời gian</p>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Thưởng giờ</p>
                         <p id="result-time-bonus" class="text-2xl font-extrabold text-amber-600 mt-1">+3,200</p>
                     </div>
                 </div>
@@ -261,19 +285,19 @@
 
             <!-- Dynamic CTA Actions based on pass/fail -->
             <div class="space-y-3 max-w-md mx-auto relative z-20 mb-6">
-                <button id="btn-download-cert" onclick="openCertificateModal()" class="w-full bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 hover:opacity-95 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition tracking-wide flex justify-center items-center">
-                    <i class="fa-solid fa-award mr-2 text-xl"></i> NHẬN & TẢI CHỨNG CHỈ VÀNG CO THẬT
+                <button id="btn-download-cert" onclick="openCertificateModal()" class="w-full bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-500 hover:opacity-95 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg transition tracking-wide flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-award text-xl"></i> NHẬN & TẢI CHỨNG CHỈ VÀNG THẦN KHÍ
                 </button>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <button id="btn-review-mistakes" onclick="showReviewScreen()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-xl border border-slate-200 transition text-sm flex justify-center items-center">
-                        <i class="fa-solid fa-clipboard-list mr-1.5"></i> Xem lại bài làm
+                    <button id="btn-review-mistakes" onclick="showReviewScreen()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-xl border border-slate-200 transition text-sm flex justify-center items-center gap-1.5">
+                        <i class="fa-solid fa-clipboard-list text-slate-500"></i> Xem lại bài làm
                     </button>
-                    <button onclick="restartQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow transition text-sm flex justify-center items-center">
-                        <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Thử sức bộ đề mới
+                    <button onclick="restartQuiz()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow transition text-sm flex justify-center items-center gap-1.5">
+                        <i class="fa-solid fa-arrows-rotate"></i> Ôn tập đề mới
                     </button>
                 </div>
-                <button onclick="openLeaderboardModal()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-4 rounded-xl shadow transition text-sm flex justify-center items-center">
-                    <i class="fa-solid fa-trophy mr-1.5 text-amber-400"></i> Xem Bảng Xếp Hạng Lớp Giáo Lý
+                <button onclick="openLeaderboardModal()" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-4 rounded-xl shadow transition text-sm flex justify-center items-center gap-1.5">
+                    <i class="fa-solid fa-trophy text-amber-400"></i> Xem Bảng Xếp Hạng Toàn Bộ Lớp
                 </button>
             </div>
         </section>
@@ -281,9 +305,11 @@
         <!-- SCREEN 4: DETAILED MISTAKES REVIEW -->
         <section id="screen-review" class="bg-white/95 rounded-2xl shadow-xl p-5 md:p-8 w-full border-t-8 border-indigo-500 relative hidden">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
-                <h2 class="serif-title text-xl font-bold text-indigo-900"><i class="fa-solid fa-book-open mr-2 text-indigo-500"></i>Chi Tiết Bài Ôn Tập</h2>
-                <button onclick="goBackToResult()" class="text-sm font-semibold text-slate-500 hover:text-slate-800 bg-slate-100 px-3.5 py-1.5 rounded-lg transition">
-                    <i class="fa-solid fa-arrow-left mr-1"></i> Quay lại kết quả
+                <h2 class="serif-title text-xl font-bold text-indigo-900 flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-indigo-500"></i> Chi Tiết Bài Ôn Tập
+                </h2>
+                <button onclick="goBackToResult()" class="text-sm font-semibold text-slate-500 hover:text-slate-800 bg-slate-100 px-3.5 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-left"></i> Trở về kết quả
                 </button>
             </div>
 
@@ -301,23 +327,23 @@
                 <i class="fa-solid fa-circle-xmark text-2xl"></i>
             </button>
             
-            <h3 class="serif-title text-xl font-bold text-amber-800 mb-2 text-center">
-                <i class="fa-solid fa-certificate text-amber-500 mr-1.5"></i> Tải Chứng Chỉ Thần Khí Của Con
+            <h3 class="serif-title text-xl font-bold text-amber-800 mb-2 text-center flex items-center gap-2">
+                <i class="fa-solid fa-certificate text-amber-500"></i> Tải Chứng Chỉ Thần Khí Danh Dự
             </h3>
-            <p class="text-xs text-slate-500 mb-4 text-center">Chứng chỉ thiết kế sắc nét dựa theo đúng kết quả và thông tin của con!</p>
+            <p class="text-xs text-slate-500 mb-4 text-center">Chứng chỉ thiết kế sắc nét dựa theo đúng kết quả sát hạch thực tế của con!</p>
 
             <!-- Certificate Canvas Preview Container -->
             <div class="w-full overflow-hidden bg-slate-50 border border-slate-200 rounded-xl flex justify-center py-4 mb-4">
-                <canvas id="cert-canvas" width="1000" height="707" class="w-full max-w-[500px] h-auto shadow-md rounded border border-slate-300 bg-white"></canvas>
+                <canvas id="cert-canvas" width="1000" height="707" class="w-full max-w-[480px] h-auto shadow-lg rounded border border-slate-300 bg-white"></canvas>
             </div>
 
             <!-- Action buttons -->
             <div class="flex flex-wrap gap-3 w-full justify-center">
-                <button onclick="downloadCertificateImage()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl transition shadow flex items-center text-sm md:text-base">
-                    <i class="fa-solid fa-cloud-arrow-down mr-2 text-lg"></i> TẢI XUỐNG FILE ẢNH (PNG)
+                <button onclick="downloadCertificateImage()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl transition shadow flex items-center gap-2 text-sm md:text-base">
+                    <i class="fa-solid fa-cloud-arrow-down text-lg"></i> TẢI FILE CHỨNG CHỈ (PNG)
                 </button>
                 <button onclick="closeCertificateModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-5 rounded-xl transition text-sm md:text-base">
-                    Để lúc khác
+                    Đóng lại
                 </button>
             </div>
         </div>
@@ -333,7 +359,7 @@
             <div class="text-center mb-4">
                 <i class="fa-solid fa-trophy text-amber-500 text-4xl mb-1 animate-bounce"></i>
                 <h3 class="serif-title text-2xl font-bold text-amber-900">BẢNG VÀNG THẦN KHÍ</h3>
-                <p class="text-xs text-slate-500">Top 10 các em hoàn thành hành trình ôn tập xuất sắc nhất</p>
+                <p class="text-xs text-slate-500">Top 15 các em hoàn thành chặng thi xuất sắc nhất</p>
             </div>
 
             <div class="overflow-x-auto border border-slate-100 rounded-xl max-h-[50vh] overflow-y-auto">
@@ -355,7 +381,7 @@
 
             <div class="mt-4 flex gap-2 justify-between items-center">
                 <button onclick="clearLeaderboardData()" class="text-[10px] text-red-500 hover:text-red-700 font-bold transition">
-                    <i class="fa-solid fa-trash-can mr-1"></i> Xoá dữ liệu bảng vàng
+                    <i class="fa-solid fa-trash-can mr-1"></i> Xoá dữ liệu Bảng Vàng
                 </button>
                 <button onclick="closeLeaderboardModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-6 rounded-xl transition text-xs">
                     Đóng bảng vàng
@@ -365,14 +391,14 @@
     </div>
 
     <!-- Sticky footer with copyright -->
-    <footer class="bg-slate-900 text-slate-400 text-center py-4 px-4 text-xs">
+    <footer class="bg-slate-950 text-slate-400 text-center py-4 px-4 text-xs mt-6 border-t border-slate-800">
         <div class="max-w-4xl mx-auto space-y-1">
-            <p class="font-semibold text-slate-300">Chương trình Sát Hạch & Ôn Tập Giáo Lý Chuẩn Bị Lãnh Nhận Bí Tích Thêm Sức 2026</p>
-            <p>&copy; Ban Giáo Lý Xứ Đoàn Thiếu Nhi Thánh Thể - Thiết kế nâng cao cho thiếu nhi từ 8 đến 16 tuổi</p>
+            <p class="font-semibold text-slate-300">Khảo Sát & Ôn Tập Giáo Lý Chuẩn Bị Lãnh Nhận Bí Tích Thêm Sức 2026</p>
+            <p>&copy; Ban Giáo Lý Xứ Đoàn Thiếu Nhi Thánh Thể - Giáo hạt / Giáo phận</p>
         </div>
     </footer>
 
-    <!-- AUDIO NOTIFICATION & BACKGROUND MUSIC ENGINE -->
+    <!-- AUDIO ENGINE: CATHELDAL PIPE ORGAN SYNTHESIZER -->
     <script>
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         let audioCtx = null;
@@ -380,12 +406,14 @@
         let isMusicPlaying = false;
         let musicStep = 0;
         let hasInteracted = false;
+        let mainVolume = 0.3; // Default 30% volume
 
+        // Melodic and warm cathedral-style chord pads (Cmaj9, Am9, Fmaj9, G11/G7)
         const musicChords = [
-            [261.63, 329.63, 392.00, 493.88], // Cmaj7
-            [220.00, 261.63, 329.63, 392.00], // Am7
-            [174.61, 261.63, 349.23, 440.00], // Fmaj7
-            [196.00, 293.66, 392.00, 493.88]  // G7
+            [130.81, 261.63, 329.63, 392.00, 493.88], // Cmaj9
+            [110.00, 220.00, 261.63, 329.63, 392.00], // Am9
+            [87.31, 174.61, 261.63, 349.23, 440.00],  // Fmaj9
+            [98.00, 196.00, 293.66, 392.00, 440.00]   // G11/7
         ];
 
         function playChordStep() {
@@ -394,37 +422,48 @@
             const now = audioCtx.currentTime;
             const chord = musicChords[musicStep];
 
+            // Create organ swell sound using soft triangle + sine combinations
             chord.forEach((freq, idx) => {
                 const osc = audioCtx.createOscillator();
+                const filter = audioCtx.createBiquadFilter();
                 const gain = audioCtx.createGain();
                 
-                osc.connect(gain);
+                osc.connect(filter);
+                filter.connect(gain);
                 gain.connect(audioCtx.destination);
                 
-                osc.type = 'sine';
-                const noteStart = now + (idx * 0.15);
+                // Pure triangle sound with high-frequency roll-off creates woodpipe organ feeling
+                osc.type = 'triangle';
+                const noteStart = now + (idx * 0.12);
                 osc.frequency.setValueAtTime(freq, noteStart);
                 
+                // Warm lowpass filter to make it sound solemn and soft
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(450, now);
+                
+                // Swell volume (Envelope attack & decay)
                 gain.gain.setValueAtTime(0, now);
-                gain.gain.linearRampToValueAtTime(0.015, noteStart + 0.5);
-                gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 3.8);
+                gain.gain.linearRampToValueAtTime(0.015 * mainVolume, noteStart + 1.2);
+                gain.gain.exponentialRampToValueAtTime(0.001 * mainVolume, noteStart + 3.8);
                 
                 osc.start(noteStart);
-                osc.stop(noteStart + 4.0);
+                osc.stop(noteStart + 4.2);
             });
 
+            // Occasional beautiful church tower bell pad on top
             if (musicStep % 2 === 0) {
                 const bellOsc = audioCtx.createOscillator();
                 const bellGain = audioCtx.createGain();
                 bellOsc.connect(bellGain);
                 bellGain.connect(audioCtx.destination);
                 bellOsc.type = 'sine';
-                bellOsc.frequency.setValueAtTime(1046.50, now + 0.8); // C6
+                bellOsc.frequency.setValueAtTime(523.25 * 2, now + 0.6); // High C6 chime
+                
                 bellGain.gain.setValueAtTime(0, now);
-                bellGain.gain.linearRampToValueAtTime(0.008, now + 0.9);
-                bellGain.gain.exponentialRampToValueAtTime(0.0001, now + 3.0);
-                bellOsc.start(now + 0.8);
-                bellOsc.stop(now + 3.2);
+                bellGain.gain.linearRampToValueAtTime(0.006 * mainVolume, now + 0.7);
+                bellGain.gain.exponentialRampToValueAtTime(0.0001 * mainVolume, now + 3.2);
+                bellOsc.start(now + 0.6);
+                bellOsc.stop(now + 3.5);
             }
 
             musicStep = (musicStep + 1) % musicChords.length;
@@ -449,8 +488,8 @@
             const text = document.getElementById('music-text');
             const waves = document.getElementById('music-indicator-waves');
 
-            icon.className = "fa-solid fa-volume-high animate-pulse";
-            text.innerText = "Nhạc nền: Bật";
+            icon.className = "fa-solid fa-volume-high animate-pulse text-amber-600";
+            text.innerText = "Bật";
             waves.classList.remove('hidden');
             
             musicStep = 0;
@@ -467,7 +506,7 @@
             const waves = document.getElementById('music-indicator-waves');
 
             icon.className = "fa-solid fa-volume-xmark";
-            text.innerText = "Nhạc nền: Tắt";
+            text.innerText = "Tắt";
             waves.classList.add('hidden');
             clearInterval(bgMusicTimer);
         }
@@ -478,6 +517,15 @@
             if (!isMusicPlaying) {
                 startMusicEngine();
             } else {
+                stopMusicEngine();
+            }
+        }
+
+        function changeVolume(value) {
+            mainVolume = value / 100;
+            if (mainVolume > 0 && !isMusicPlaying) {
+                startMusicEngine();
+            } else if (mainVolume === 0 && isMusicPlaying) {
                 stopMusicEngine();
             }
         }
@@ -510,30 +558,30 @@
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(580, now);
                     osc.frequency.exponentialRampToValueAtTime(1100, now + 0.08);
-                    gain.gain.setValueAtTime(0.06, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                    gain.gain.setValueAtTime(0.06 * mainVolume, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001 * mainVolume, now + 0.08);
                     osc.start(now);
                     osc.stop(now + 0.08);
                 } else if (type === 'click') {
                     osc.type = 'triangle';
                     osc.frequency.setValueAtTime(450, now);
-                    gain.gain.setValueAtTime(0.12, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                    gain.gain.setValueAtTime(0.12 * mainVolume, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001 * mainVolume, now + 0.06);
                     osc.start(now);
                     osc.stop(now + 0.06);
                 } else if (type === 'tick') {
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(1400, now);
-                    gain.gain.setValueAtTime(0.04, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+                    gain.gain.setValueAtTime(0.04 * mainVolume, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001 * mainVolume, now + 0.03);
                     osc.start(now);
                     osc.stop(now + 0.03);
                 } else if (type === 'wrong') {
                     osc.type = 'sawtooth';
                     osc.frequency.setValueAtTime(220, now);
                     osc.frequency.linearRampToValueAtTime(110, now + 0.6);
-                    gain.gain.setValueAtTime(0.15, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.65);
+                    gain.gain.setValueAtTime(0.15 * mainVolume, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001 * mainVolume, now + 0.65);
                     osc.start(now);
                     osc.stop(now + 0.65);
                 } else if (type === 'pass') {
@@ -545,19 +593,18 @@
                         g.connect(audioCtx.destination);
                         o.type = 'sine';
                         o.frequency.setValueAtTime(freq, now + idx * 0.07);
-                        g.gain.setValueAtTime(0.08, now + idx * 0.07);
-                        g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.65);
+                        g.gain.setValueAtTime(0.08 * mainVolume, now + idx * 0.07);
+                        g.gain.exponentialRampToValueAtTime(0.001 * mainVolume, now + idx * 0.07 + 0.65);
                         o.start(now + idx * 0.07);
                         o.stop(now + idx * 0.07 + 0.65);
                     });
                 } else if (type === 'siren') {
-                    // Còi hú báo động gian lận kịch tính
                     osc.type = 'sawtooth';
                     osc.frequency.setValueAtTime(800, now);
                     osc.frequency.linearRampToValueAtTime(1200, now + 0.2);
                     osc.frequency.linearRampToValueAtTime(800, now + 0.4);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+                    gain.gain.setValueAtTime(0.2 * mainVolume, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001 * mainVolume, now + 0.45);
                     osc.start(now);
                     osc.stop(now + 0.45);
                 }
@@ -594,7 +641,7 @@
             }
         });
 
-        // 4. Phát hiện mất Focus màn hình (nhấn click ra chỗ khác ngoài trình duyệt)
+        // 4. Phát hiện mất Focus màn hình
         window.addEventListener('blur', () => {
             if (isUserActiveInQuiz) {
                 handleCheatAttempt();
@@ -619,7 +666,7 @@
             if (cheatAttemptsCount >= 3) {
                 clearInterval(timerInterval);
                 isUserActiveInQuiz = false;
-                autoSubmitQuiz("Bị ĐÌNH CHỈ THI do chuyển tab gian lận quá 3 lần!");
+                autoSubmitQuiz("Bị ĐÌNH CHỈ THI do cố tình chuyển tab tra cứu 3 lần!");
             }
 
             // Tự ẩn thông báo cảnh báo sau 5 giây
@@ -629,7 +676,7 @@
         }
     </script>
 
-    <!-- PRIMARY GAME ENGINE AND DATABASE INJECTION -->
+    <!-- DATABASE & CONTESTAT GAMES CORE ENGINE -->
     <script>
         const MASTER_QUESTION_BANK = [
             // BÀI 1: TUYÊN XƯNG ĐỨC TIN
@@ -1148,9 +1195,9 @@
                     playSound('tick');
                     const badge = document.getElementById('timer-badge');
                     if (timeLeft % 2 === 0) {
-                        badge.className = "flex items-center space-x-2 bg-red-600 px-3 py-1.5 rounded-full text-white border border-red-700 animate-pulse transition-colors duration-300";
+                        badge.className = "flex items-center space-x-2 bg-red-600 px-3.5 py-2 rounded-full text-white border border-red-700 animate-pulse transition-colors duration-300";
                     } else {
-                        badge.className = "flex items-center space-x-2 bg-red-50 px-3 py-1.5 rounded-full text-red-600 border border-red-200 transition-colors duration-300";
+                        badge.className = "flex items-center space-x-2 bg-red-50 px-3.5 py-2 rounded-full text-red-600 border border-red-200 transition-colors duration-300";
                     }
                 }
 
@@ -1199,7 +1246,7 @@
 
             document.getElementById('header-username').innerText = `${userInfo.name} (${userInfo.className})`;
             document.getElementById('header-user').classList.remove('hidden');
-            document.getElementById('timer-badge').className = "flex items-center space-x-2 bg-red-50 px-3 py-1.5 rounded-full text-red-600 border border-red-200 transition-colors";
+            document.getElementById('timer-badge').className = "flex items-center space-x-2 bg-red-50 px-3.5 py-2 rounded-full text-red-600 border border-red-200 transition-colors";
 
             currentQuestions = generateTest();
             currentQuestionIndex = 0;
@@ -1229,10 +1276,10 @@
             q.options.forEach((opt, idx) => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                btn.className = `w-full text-left p-4 rounded-xl border-2 font-medium text-sm md:text-base flex items-center justify-between transition-all duration-200 active:scale-[0.99] select-none`;
+                btn.className = `w-full text-left p-4 rounded-xl border-2 font-medium text-sm md:text-base flex items-center justify-between transition-all duration-200 active:scale-[0.99] select-none shadow-sm`;
                 
                 if (userAnswers[currentQuestionIndex] === idx) {
-                    btn.className += " border-blue-600 bg-blue-50/80 text-blue-900 shadow-sm shadow-blue-100";
+                    btn.className += " border-blue-600 bg-blue-50/80 text-blue-900 shadow-inner";
                     btn.innerHTML = `<span><strong class="mr-2 text-blue-600">${String.fromCharCode(65 + idx)}.</strong> ${opt}</span><i class="fa-solid fa-circle-check text-blue-600 text-lg"></i>`;
                 } else {
                     btn.className += " border-slate-200 hover:border-slate-300 hover:bg-slate-50 bg-white text-slate-700";
@@ -1250,14 +1297,15 @@
             if (userAnswers[currentQuestionIndex] === null) {
                 nextBtn.disabled = true;
                 nextBtn.innerHTML = `Chọn 1 đáp án <i class="fa-solid fa-lock ml-1.5"></i>`;
+                nextBtn.className = "bg-slate-300 text-slate-500 font-bold py-2.5 px-6 rounded-xl cursor-not-allowed flex items-center";
             } else {
                 nextBtn.disabled = false;
                 if (currentQuestionIndex === 24) { 
                     nextBtn.innerHTML = `Nộp Bài Ôn Tập <i class="fa-solid fa-cloud-arrow-up ml-1.5"></i>`;
-                    nextBtn.className = nextBtn.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-emerald-600 hover:bg-emerald-700');
+                    nextBtn.className = "bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-md transition flex items-center";
                 } else {
                     nextBtn.innerHTML = `Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1.5"></i>`;
-                    nextBtn.className = nextBtn.className.replace('bg-emerald-600 hover:bg-emerald-700', 'bg-blue-600 hover:bg-blue-700');
+                    nextBtn.className = "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-6 rounded-xl shadow-md transition flex items-center";
                 }
             }
 
@@ -1326,12 +1374,26 @@
             const speedBonus = isPassed ? Math.round(correctCount * timeLeft * 0.5) : 0;
             totalGameScore = baseScore + speedBonus;
 
+            // FIX: Ensure result data and elements exist
             document.getElementById('result-user-info').innerText = `Thí sinh: ${userInfo.name} • Lớp: ${userInfo.className}`;
             document.getElementById('result-percentage').innerText = `${percentage}%`;
             document.getElementById('result-correct-count').innerText = `${correctCount}/25 câu`;
             document.getElementById('result-base-score').innerText = baseScore.toLocaleString();
             document.getElementById('result-time-bonus').innerText = `+${speedBonus.toLocaleString()}`;
             document.getElementById('result-total-score').innerText = totalGameScore.toLocaleString();
+
+            // Animate dynamic radial score gauge bar
+            const radialBar = document.getElementById('result-radial-bar');
+            const circumference = 2 * Math.PI * 42; // ~263.89
+            const strokeDashoffset = circumference - (circumference * percentage) / 100;
+            
+            // Set dynamic gauge color based on passing
+            if (isPassed) {
+                radialBar.setAttribute('stroke', '#10b981'); // Emerald
+            } else {
+                radialBar.setAttribute('stroke', '#ef4444'); // Red
+            }
+            radialBar.style.strokeDashoffset = strokeDashoffset;
 
             const badge = document.getElementById('result-status-badge');
             const heading = document.getElementById('result-heading');
@@ -1355,7 +1417,7 @@
                 }, 100);
             } else {
                 badge.className = "mx-auto w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-3 shadow-inner bg-red-100 text-red-600";
-                badge.innerHTML = `<i class="fa-solid fa-circle-xmark"></i>`;
+                badge.innerHTML = `<i class="fa-solid fa-circle-xmark animate-pulse"></i>`;
                 heading.innerText = "CẦN ÔN TẬP THÊM CHÚT NỮA!";
                 heading.className = "serif-title text-2xl md:text-3xl font-extrabold mb-1 text-red-700";
                 
@@ -1382,7 +1444,7 @@
                 saveToLeaderboard(userInfo.name, userInfo.className, correctCount, 900 - timeLeft, totalGameScore);
             }
 
-            generateCertificateCanvas(percentage);
+            generateCertificateCanvas();
             showScreen('screen-result');
         }
 
@@ -1469,7 +1531,7 @@
 
             currentQuestions.forEach((q, idx) => {
                 const isCorrect = userAnswers[idx] === q.correctIndex;
-                const chosenAns = userAnswers[idx] !== -1 ? q.options[userAnswers[idx]] : "Không trả lời";
+                const chosenAns = userAnswers[idx] !== -1 && userAnswers[idx] !== null ? q.options[userAnswers[idx]] : "Không trả lời";
                 const correctAns = q.options[q.correctIndex];
 
                 const card = document.createElement('div');
@@ -1481,7 +1543,7 @@
                             ${idx + 1}
                         </span>
                         <div class="flex-grow">
-                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200/80 text-slate-600">${q.theme}</span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200/85 text-slate-600">${q.theme}</span>
                             <h4 class="font-bold text-slate-800 text-sm md:text-base mt-1.5 leading-relaxed">${q.question}</h4>
                             
                             <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs md:text-sm">
@@ -1531,7 +1593,7 @@
             window.addEventListener('resize', resizeCanvas);
 
             const colors = ['#f59e0b', '#3b82f6', '#ef4444', '#10b981', '#ec4899', '#8b5cf6'];
-            const confettiCount = 80;
+            const confettiCount = 100;
             const confetti = [];
 
             for (let i = 0; i < confettiCount; i++) {
@@ -1540,7 +1602,7 @@
                     y: Math.random() * canvas.height - canvas.height,
                     size: Math.random() * 8 + 5,
                     color: colors[Math.floor(Math.random() * colors.length)],
-                    speed: Math.random() * 3 + 2,
+                    speed: Math.random() * 3 + 2.5,
                     rotation: Math.random() * 360,
                     rotationSpeed: Math.random() * 4 - 2
                 });
@@ -1574,124 +1636,121 @@
             updateConfetti();
         }
 
-        // CHỨNG CHỈ ĐƯỢC THIẾT KẾ LẠI SIÊU CHÂN THỰC & SANG TRỌNG (Độ phân giải lớn 1000x707)
-        function generateCertificateCanvas(scorePercentage) {
+        // CHỨNG CHỈ ĐƯỢC THIẾT KẾ SIÊU CHÂN THỰC & SANG TRỌNG
+        function generateCertificateCanvas() {
             const canvas = document.getElementById('cert-canvas');
             const ctx = canvas.getContext('2d');
 
-            // 1. NỀN GIẤY DA CỔ ĐIỂN (Parchment Paper)
+            // 1. NỀN GIẤY DA CỔ ĐIỂN
             const bgGrad = ctx.createLinearGradient(0, 0, 1000, 707);
-            bgGrad.addColorStop(0, '#fffbf0');
-            bgGrad.addColorStop(0.5, '#fdf5df');
-            bgGrad.addColorStop(1, '#f7ebd0');
+            bgGrad.addColorStop(0, '#fffdf6');
+            bgGrad.addColorStop(0.5, '#fefbf0');
+            bgGrad.addColorStop(1, '#fbf4df');
             ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, 1000, 707);
 
-            // 2. VẼ HOA VĂN CHÌM CHỐNG GIẢ (Guilloche Pattern)
+            // 2. VẼ HOA VĂN CHÌM CHỐNG GIẢ
             ctx.save();
-            ctx.strokeStyle = 'rgba(217, 119, 6, 0.05)'; // Rất mảnh nhạt
+            ctx.strokeStyle = 'rgba(217, 119, 6, 0.04)'; 
             ctx.lineWidth = 1;
-            for (let i = 0; i < 1000; i += 25) {
+            for (let i = 0; i < 1100; i += 25) {
                 ctx.beginPath();
                 ctx.arc(500, 353, i, 0, Math.PI * 2);
                 ctx.stroke();
             }
             ctx.restore();
 
-            // 3. KHUNG VIỀN HOÀNG GIA ĐA LỚP (Royal Border)
-            // Lớp ngoài cùng (Nâu sẫm mỏng)
+            // 3. KHUNG VIỀN HOÀNG GIA ĐA LỚP
             ctx.lineWidth = 2;
-            ctx.strokeStyle = '#451a03'; // amber-950
+            ctx.strokeStyle = '#451a03'; // Dark chocolate brown
             ctx.strokeRect(15, 15, 970, 677);
 
-            // Khoảng đệm hoa văn góc
-            // Lớp viền vàng đôi chính
             ctx.lineWidth = 6;
-            ctx.strokeStyle = '#d97706'; // amber-700
+            ctx.strokeStyle = '#d97706'; // Amber main gold
             ctx.strokeRect(35, 35, 930, 637);
 
             ctx.lineWidth = 2;
-            ctx.strokeStyle = '#fbbf24'; // amber-400
+            ctx.strokeStyle = '#fbbf24'; // Inner thin gold line
             ctx.strokeRect(47, 47, 906, 613);
 
-            // Lớp viền chấm bi vàng hoàng cung nhỏ
+            // Lớp viền chấm bi hoàng cung nhỏ
             ctx.save();
-            ctx.strokeStyle = 'rgba(180, 83, 9, 0.3)';
+            ctx.strokeStyle = 'rgba(180, 83, 9, 0.25)';
             ctx.setLineDash([4, 8]);
             ctx.lineWidth = 3;
             ctx.strokeRect(58, 58, 884, 591);
             ctx.restore();
 
-            // 4. VẼ GÓC HOA VĂN HOÀNG GIA CỔ ĐIỂN (Flourish Corners)
+            // 4. VẼ GÓC HOA VĂN HOÀNG GIA CỔ ĐIỂN
             drawClassicCornerOrnament(ctx, 35, 35);
             drawClassicCornerOrnament(ctx, 965, 35, true, false);
             drawClassicCornerOrnament(ctx, 35, 672, false, true);
             drawClassicCornerOrnament(ctx, 965, 672, true, true);
 
-            // 5. BIỂU TƯỢNG THẦN KHÍ THIÊNG LIÊNG (Tỏa hào quang rực rỡ)
+            // 5. BIỂU TƯỢNG THẦN KHÍ THIÊNG LIÊNG
             drawAdvancedHolySpiritSymbol(ctx, 500, 130);
 
-            // 6. TIÊU ĐỀ CHÍNH (Đồng bộ font chân phương trang nghiêm)
+            // 6. TIÊU ĐỀ TRANG TRỌNG
             ctx.textAlign = "center";
-            ctx.fillStyle = "#78350f"; // Nâu gỗ đậm cổ kính
-            ctx.font = "bold 32px 'Playfair Display', Georgia, serif";
+            ctx.fillStyle = "#78350f"; 
+            ctx.font = "bold 34px 'Playfair Display', Georgia, serif";
             ctx.fillText("CHỨNG NHẬN HOÀN THÀNH", 500, 225);
 
-            ctx.fillStyle = "#b45309"; // amber-700
+            ctx.fillStyle = "#b45309"; 
             ctx.font = "italic 16px 'Montserrat', sans-serif";
             ctx.fillText("Chương Trình Sát Hạch Giáo Lý Thêm Sức Niên Khóa 2025 – 2026", 500, 255);
 
-            // Đường phân cách vàng vương miện quý phái
-            drawDecorativeDivider(ctx, 350, 650, 270);
+            // Đường phân cách trang trí quý phái
+            drawDecorativeDivider(ctx, 350, 650, 275);
 
             // 7. NỘI DUNG CHỨNG NHẬN
-            ctx.fillStyle = "#334155"; // slate-700
-            ctx.font = "medium 18px 'Montserrat', sans-serif";
-            ctx.fillText("Ban Giáo Lý Xứ Đoàn Thiếu Nhi Thánh Thể hân hoan chứng nhận em:", 500, 310);
+            ctx.fillStyle = "#334155"; 
+            ctx.font = "18px 'Montserrat', sans-serif";
+            ctx.fillText("Ban Giáo Lý Xứ Đoàn Thiếu Nhi Thánh Thể hân hoan chứng nhận em:", 500, 315);
 
-            // Tên Thánh và tên gọi học sinh (Chữ to, Font viết tay giả chữ ký hoặc font rất đậm)
-            ctx.fillStyle = "#b91c1c"; // Đỏ phụng vụ/lửa thần khí
-            ctx.font = "bold 35px 'Playfair Display', Georgia, serif";
-            ctx.fillText(userInfo.name.toUpperCase(), 500, 360);
+            // Tên Thánh và tên học sinh (Chữ đỏ rực tôn kính)
+            ctx.fillStyle = "#b91c1c"; 
+            ctx.font = "bold 36px 'Playfair Display', Georgia, serif";
+            ctx.fillText(userInfo.name.toUpperCase(), 500, 365);
 
             ctx.fillStyle = "#475569";
             ctx.font = "bold 17px 'Montserrat', sans-serif";
-            ctx.fillText(`Chi đoàn / Lớp: ${userInfo.className}`, 500, 395);
+            ctx.fillText(`Chi đoàn / Lớp: ${userInfo.className}`, 500, 400);
 
-            // Lời tuyên dương danh dự
+            // Tuyên dương danh giá
             ctx.fillStyle = "#1e293b";
             ctx.font = "15px 'Montserrat', sans-serif";
-            ctx.fillText("Đã vượt qua kỳ khảo thí ôn tập giáo lý toàn diện bằng thực lực với điểm số tuyệt đối 100%,", 500, 440);
-            ctx.fillText(`đạt mốc kỷ lục ${totalGameScore.toLocaleString()} điểm vàng Thần Khí hân hoan sẵn sàng bước vào Thánh Lễ Thêm Sức.`, 500, 465);
+            ctx.fillText("Đã xuất sắc vượt qua kỳ thi ôn tập giáo lý toàn diện chuẩn bị lãnh nhận Bí Tích Thêm Sức,", 500, 445);
+            ctx.fillText(`với thành tích tuyệt đối 100% cùng số điểm vinh quang ${totalGameScore.toLocaleString()} điểm vàng Thần Khí.`, 500, 470);
 
             // Châm ngôn Thần Khí
             ctx.fillStyle = "#78350f";
-            ctx.font = "italic 14px 'Playfair Display', serif";
-            ctx.fillText(`"Hãy lãnh nhận ấn tín ơn Chúa Thánh Thần" (Nghi thức Thêm Sức)`, 500, 515);
+            ctx.font = "italic 14.5px 'Playfair Display', serif";
+            ctx.fillText(`"Hãy lãnh nhận ấn tín ơn Chúa Thánh Thần" (Nghi thức Thêm Sức)`, 500, 520);
 
-            // 8. CHỮ KÝ, NGÀY THÁNG VÀ CON DẤU ĐỎ
+            // 8. CHỮ KÝ & CON DẤU ĐỎ THÁNH ĐƯỜNG
             const today = new Date();
             const dateStr = `Ngày ${today.getDate()} tháng ${today.getMonth() + 1} năm ${today.getFullYear()}`;
             
             ctx.fillStyle = "#475569";
             ctx.font = "13px 'Montserrat', sans-serif";
-            ctx.fillText(dateStr, 250, 570);
+            ctx.fillText(dateStr, 250, 575);
             
             ctx.fillStyle = "#1e293b";
             ctx.font = "bold 13px 'Montserrat', sans-serif";
-            ctx.fillText("ĐẠI DIỆN BAN GIÁO LÝ XỨ ĐOÀN", 250, 595);
+            ctx.fillText("ĐẠI DIỆN BAN GIÁO LÝ XỨ ĐOÀN", 250, 600);
             
-            // Vẽ chữ ký tay mềm mại giả lập cho thật
-            ctx.strokeStyle = "rgba(30, 41, 59, 0.85)";
+            // Vẽ chữ ký tay uốn lượn giả lập mềm mại
+            ctx.strokeStyle = "rgba(15, 23, 42, 0.8)";
             ctx.lineWidth = 2.5;
             ctx.beginPath();
-            ctx.moveTo(190, 630);
-            ctx.bezierCurveTo(220, 600, 240, 650, 260, 620);
-            ctx.bezierCurveTo(280, 600, 290, 630, 320, 625);
+            ctx.moveTo(190, 635);
+            ctx.bezierCurveTo(220, 605, 240, 655, 260, 625);
+            ctx.bezierCurveTo(280, 605, 290, 635, 320, 630);
             ctx.stroke();
 
-            // Vẽ Con Dấu Đỏ Hoành Tráng (Chân thực hơn)
-            drawHighQualityParishSeal(ctx, 750, 590);
+            // Con dấu đỏ Công Giáo cực đẹp bên phải
+            drawHighQualityParishSeal(ctx, 750, 595);
         }
 
         // Vẽ hoa văn góc cổ điển tinh xảo
@@ -1701,7 +1760,7 @@
             if (flipX) ctx.scale(-1, 1);
             if (flipY) ctx.scale(1, -1);
 
-            ctx.strokeStyle = "#b45309"; // amber-700
+            ctx.strokeStyle = "#b45309"; 
             ctx.lineWidth = 2;
             
             // Khung góc vuông cơ bản
@@ -1711,7 +1770,7 @@
             ctx.lineTo(40, 0);
             ctx.stroke();
 
-            // Hoa văn lá cách điệu cuộn tròn cổ điển
+            // Hoa lá cuộn tròn
             ctx.fillStyle = "#d97706";
             ctx.beginPath();
             ctx.arc(8, 8, 4, 0, Math.PI * 2);
@@ -1725,7 +1784,7 @@
             ctx.restore();
         }
 
-        // Vẽ dải phân cách trang hoàng cổ điển
+        // Vẽ dải hoa văn phân cách sang trọng
         function drawDecorativeDivider(ctx, xStart, xEnd, y) {
             ctx.save();
             ctx.strokeStyle = "#fbbf24";
@@ -1736,26 +1795,26 @@
             ctx.lineTo(xEnd, y);
             ctx.stroke();
 
-            // Vẽ hình kim cương nhỏ chính giữa đường thẳng
+            // Kim cương chính diện
             ctx.fillStyle = "#d97706";
             ctx.beginPath();
             const center = xStart + (xEnd - xStart)/2;
             ctx.moveTo(center, y - 6);
-            ctx.lineTo(center + 10, y);
+            ctx.lineTo(center + 12, y);
             ctx.lineTo(center, y + 6);
-            ctx.lineTo(center - 10, y);
+            ctx.lineTo(center - 12, y);
             ctx.closePath();
             ctx.fill();
             ctx.restore();
         }
 
-        // Vẽ Chim bồ câu biểu tượng cao cấp
+        // Chim bồ câu biểu tượng cao cấp tỏa sáng 3D
         function drawAdvancedHolySpiritSymbol(ctx, cx, cy) {
             ctx.save();
             ctx.translate(cx, cy);
 
-            // 1. Hào quang tỏa tia vàng kim phía sau
-            ctx.strokeStyle = "rgba(245, 158, 11, 0.4)";
+            // Hào quang vàng rực tỏa tia phía sau
+            ctx.strokeStyle = "rgba(245, 158, 11, 0.45)";
             ctx.lineWidth = 1.5;
             for (let angle = 0; angle < 360; angle += 15) {
                 const rad = angle * Math.PI / 180;
@@ -1765,37 +1824,36 @@
                 ctx.stroke();
             }
 
-            // 2. Halo lửa đỏ nhạt
+            // Halo ánh sáng đỏ của lửa hồng ân
             ctx.fillStyle = "rgba(239, 68, 68, 0.12)"; 
             ctx.beginPath();
             ctx.arc(0, 0, 38, 0, Math.PI * 2);
             ctx.fill();
 
-            // 3. Ba ngọn lửa đỏ rực từ trên trời đổ xuống biểu trưng hồng ân
-            ctx.fillStyle = "rgba(220, 38, 38, 0.8)";
+            // 3 Ngọn lửa Thánh Thần đổ xuống từ trời
+            ctx.fillStyle = "rgba(220, 38, 38, 0.85)";
             drawFlameShape(ctx, -25, 10, 8);
             drawFlameShape(ctx, 0, 20, 10);
             drawFlameShape(ctx, 25, 10, 8);
 
-            // 4. Chim bồ câu trắng tinh xảo bay đáp xuống
+            // Bồ câu trắng thánh khiết ngự xuống
             ctx.fillStyle = "#ffffff";
             ctx.strokeStyle = "#78350f";
             ctx.lineWidth = 2.5;
             ctx.lineJoin = "round";
 
             ctx.beginPath();
-            // Đầu và mỏ quay xuống dưới
             ctx.moveTo(0, 22); 
             ctx.quadraticCurveTo(-4, 12, -7, 6); // Đầu trái
-            ctx.quadraticCurveTo(-22, 2, -35, -5); // Cánh trái trên
-            ctx.quadraticCurveTo(-45, -5, -38, 8); // Cánh trái dưới
-            ctx.quadraticCurveTo(-18, 12, -5, 13); // Khớp cánh trái vào thân
+            ctx.quadraticCurveTo(-22, 2, -35, -5); // Cánh trái
+            ctx.quadraticCurveTo(-45, -5, -38, 8); 
+            ctx.quadraticCurveTo(-18, 12, -5, 13); 
             
-            // Đuôi xòe quạt quý phái
+            // Đuôi xòe quạt vương giả
             ctx.quadraticCurveTo(-10, 25, -6, 35); 
             ctx.quadraticCurveTo(0, 40, 6, 35);  
             
-            // Cánh phải đối xứng
+            // Cánh phải đối xứng hoàn hảo
             ctx.quadraticCurveTo(10, 25, 5, 13);  
             ctx.quadraticCurveTo(18, 12, 38, 8);  
             ctx.quadraticCurveTo(45, -5, 35, -5); 
@@ -1805,7 +1863,7 @@
             ctx.fill();
             ctx.stroke();
 
-            // Mắt chim bồ câu mộc mạc
+            // Mắt bồ câu
             ctx.fillStyle = "#78350f";
             ctx.beginPath();
             ctx.arc(-2, 10, 1.5, 0, Math.PI*2);
@@ -1819,53 +1877,51 @@
             ctx.translate(x, y);
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            // Vẽ ngọn lửa hình giọt nước cong ngược lên
             ctx.bezierCurveTo(-size, -size/2, -size, -size*2, 0, -size*3);
             ctx.bezierCurveTo(size, -size*2, size, -size/2, 0, 0);
             ctx.fill();
             ctx.restore();
         }
 
-        // Vẽ con dấu đỏ nổi bật có họa tiết Công Giáo chân thực
+        // Con dấu đỏ hoàng gia của Xứ đoàn có vòng chữ cong nghệ thuật
         function drawHighQualityParishSeal(ctx, cx, cy) {
             ctx.save();
             ctx.translate(cx, cy);
 
-            const redInk = "rgba(185, 28, 28, 0.85)"; // Màu mực đỏ triện Công Giáo đậm đà
+            const redInk = "rgba(185, 28, 28, 0.85)"; 
             ctx.strokeStyle = redInk;
             ctx.fillStyle = redInk;
 
-            // 1. Viền thô ngoài cùng dày dặn
+            // Vòng tròn thô ngoài cùng
             ctx.lineWidth = 3.5;
             ctx.beginPath();
             ctx.arc(0, 0, 54, 0, Math.PI * 2);
             ctx.stroke();
 
-            // 2. Viền phụ mảnh bên trong
+            // Vòng tròn phụ bên trong
             ctx.lineWidth = 1.2;
             ctx.beginPath();
             ctx.arc(0, 0, 46, 0, Math.PI * 2);
             ctx.stroke();
 
-            // 3. Viền mảnh trong cùng
+            // Vòng tròn trong cùng bảo vệ tâm
             ctx.beginPath();
             ctx.arc(0, 0, 32, 0, Math.PI * 2);
             ctx.stroke();
 
-            // 4. Biểu tượng Thập Giá & Ngọn lửa Chúa Thánh Thần ở tâm con dấu
+            // Biểu tượng Thập Giá đức tin Công Giáo ở trung tâm
             ctx.lineWidth = 3;
-            // Trục dọc thập giá
             ctx.beginPath();
             ctx.moveTo(0, -22);
             ctx.lineTo(0, 16);
             ctx.stroke();
-            // Thanh ngang thập giá
+            
             ctx.beginPath();
             ctx.moveTo(-15, -10);
             ctx.lineTo(15, -10);
             ctx.stroke();
 
-            // Hình trái tim nhỏ bốc lửa ở chân Thập Giá đại diện cho tình yêu mến
+            // Trái tim bốc lửa
             ctx.beginPath();
             ctx.arc(-4, 10, 4, 0, Math.PI, true);
             ctx.arc(4, 10, 4, 0, Math.PI, true);
@@ -1873,7 +1929,7 @@
             ctx.closePath();
             ctx.fill();
 
-            // 5. Viết chữ cong bao quanh đường viền tròn con dấu
+            // Thiết kế chữ cong vòng quanh con dấu
             ctx.font = "bold 8px Arial, sans-serif";
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
@@ -1881,24 +1937,23 @@
             const textTop = "XỨ ĐOÀN THIẾU NHI THÁNH THỂ";
             const textBottom = "★ BAN GIÁO LÝ ĐỨC TIN ★";
 
-            // Vẽ chữ uốn lượn phía trên
+            // Vẽ chữ cong vòm trên
             for (let i = 0; i < textTop.length; i++) {
-                // Góc quay từ -120 độ tới 120 độ
                 const angle = -Math.PI * 0.75 + (i / (textTop.length - 1)) * Math.PI * 1.5;
                 ctx.save();
                 ctx.rotate(angle);
-                ctx.translate(0, -39); // Đẩy chữ sát viền
+                ctx.translate(0, -39); 
                 ctx.fillText(textTop[i], 0, 0);
                 ctx.restore();
             }
 
-            // Vẽ chữ uốn lượn phía dưới
+            // Vẽ chữ cong ngược vòm dưới để dễ đọc
             for (let i = 0; i < textBottom.length; i++) {
                 const angle = Math.PI * 0.25 + (i / (textBottom.length - 1)) * Math.PI * 0.5;
                 ctx.save();
                 ctx.rotate(angle);
                 ctx.translate(0, 39); 
-                ctx.rotate(Math.PI); // Quay chữ 180 độ để dễ đọc dưới con dấu
+                ctx.rotate(Math.PI); 
                 ctx.fillText(textBottom[i], 0, 0);
                 ctx.restore();
             }
